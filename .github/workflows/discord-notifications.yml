@@ -1,20 +1,20 @@
-name: Notify Discord on Push
+name: Discord Notifications
 
 on:
   push:
     branches:
       - live
       - dev
-  workflow_run:
-    workflows: ["discord-notifications.yml"]
+  pull_request:
     types:
-      - completed
+      - closed
 
 jobs:
   discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Discord Notification
+      - name: Send Discord Notification for Push
+        if: github.event_name == 'push'
         run: |
           USER_AVATAR_URL="https://avatars.githubusercontent.com/${{ github.actor }}"
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
@@ -26,6 +26,31 @@ jobs:
           -d '{
             "embeds": [{
               "title": "${{ github.actor }} pushed to '"$BRANCH_NAME"'",
+              "url": "'"$COMMIT_URL"'",
+              "description": "'"$COMMIT_MESSAGE"'",
+              "color": 10181046,
+              "author": {
+                "name": "${{ github.actor }}",
+                "url": "https://github.com/${{ github.actor }}",
+                "icon_url": "'"$USER_AVATAR_URL"'"
+              }
+            }]
+          }' \
+          "${{ secrets.DISCORD_WEBHOOK }}"
+
+      - name: Send Discord Notification for PR Merge
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        run: |
+          USER_AVATAR_URL="https://avatars.githubusercontent.com/${{ github.actor }}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          COMMIT_URL="${{ github.event.pull_request.html_url }}"
+          COMMIT_MESSAGE="${{ github.event.pull_request.title }}"
+
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{
+            "embeds": [{
+              "title": "${{ github.actor }} merged into '"$BRANCH_NAME"'",
               "url": "'"$COMMIT_URL"'",
               "description": "'"$COMMIT_MESSAGE"'",
               "color": 10181046,
