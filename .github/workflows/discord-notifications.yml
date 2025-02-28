@@ -5,6 +5,10 @@ on:
     branches:
       - live
       - dev
+  workflow_run:
+    workflows: ["discord-notifications.yml"]
+    types:
+      - completed
 
 jobs:
   discord:
