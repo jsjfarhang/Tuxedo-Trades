@@ -50,8 +50,9 @@ jobs:
           -X POST \
           -d '{
             "embeds": [{
-              "title": "${{ github.actor }} merged "'"$COMMIT_MESSAGE"'" into '"$BRANCH_NAME"'",
+              "title": "${{ github.actor }} merged into '"$BRANCH_NAME"'",
               "url": "'"$COMMIT_URL"'",
+              "description": "'"$COMMIT_MESSAGE"'",
               "color": 10181046,
               "author": {
                 "name": "${{ github.actor }}",
