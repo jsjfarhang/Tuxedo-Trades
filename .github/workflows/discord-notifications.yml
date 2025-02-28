@@ -19,7 +19,6 @@ jobs:
           -d '{
             "embeds": [{
               "title": "${{ github.actor }} ${{ github.ref_name }} branch commit",
-              "url": "${{ github.event.head_commit.url }}",
               "description": "${{ github.event.head_commit.message }}",
               "color": #506b90,
               "author": {
