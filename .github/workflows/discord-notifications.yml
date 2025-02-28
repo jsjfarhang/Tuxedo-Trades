@@ -18,13 +18,13 @@ jobs:
           -X POST \
           -d '{
             "embeds": [{
-              "title": "${{ github.actor }} ${{ github.ref_name }} branch commit",
-              "description": "${{ github.event.head_commit.message }}",
-              "color": #506b90,
+              "title": "${{ github.actor }} pushed to '${GITHUB_REF#refs/heads/}'",
+              "description": "${{ github.event.head_commit.message || 'Merge' }}",
+              "color": 5263888,
               "author": {
                 "name": "${{ github.actor }}",
                 "url": "https://github.com/${{ github.actor }}",
-                "icon_url": "'${USER_AVATAR_URL}'"
+                "icon_url": "'"$USER_AVATAR_URL"'"
               }
             }]
           }' \
