@@ -13,13 +13,17 @@ jobs:
       - name: Send Discord Notification
         run: |
           USER_AVATAR_URL="https://avatars.githubusercontent.com/${{ github.actor }}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          COMMIT_URL="${{ github.event.head_commit.url }}"
+          COMMIT_MESSAGE="${{ github.event.head_commit.message || 'Merge' }}"
 
           curl -H "Content-Type: application/json" \
           -X POST \
           -d '{
             "embeds": [{
-              "title": "[${{ github.actor }} pushed to '${GITHUB_REF#refs/heads/}'](${{ github.event.head_commit.url }})",
-              "description": "${{ github.event.head_commit.message || 'Merge' }}",
+              "title": "${{ github.actor }} pushed to '"$BRANCH_NAME"'",
+              "url": "'"$COMMIT_URL"'",
+              "description": "'"$COMMIT_MESSAGE"'",
               "color": 5263888,
               "author": {
                 "name": "${{ github.actor }}",
