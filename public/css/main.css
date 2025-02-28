@@ -14,14 +14,6 @@
     width: 40em;
 }
 
-/*
-@media only screen and (max-width: 960px) {
-    .loginImg img {
-
-    }
-}
-*/
-
 .loginInput {
     display: flex;
     justify-content: center;
@@ -82,6 +74,26 @@
     font-size: large;
     width: 12em;
     height: 3em;
+}
+
+@media (max-width: 1200px) {
+    .login {
+        margin-right: 0;
+    }
+}
+@media (max-width: 749px) {
+    .loginInput {
+        display: grid;
+    }
+    .username {
+        margin-right: 0;
+    }
+    .password {
+        margin-left: 0;
+    }
+    .loginImg img {
+        width: 90%;
+    }
 }
 
 

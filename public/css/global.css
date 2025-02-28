@@ -8,6 +8,7 @@
 
 body {
   background-color: #393939;
+  min-width: 340px;
 }
 
 input {
@@ -117,4 +118,5 @@ button:hover, a:hover {
   bottom: 0;
   width: 100%;
   padding: 10px;
+  min-width: 340px;
 }
