@@ -1,5 +1,22 @@
 <div class="header">
-    <div class="navToggleImg"><button><img src="img/navToggle.png"></button></div>
-    <div><img src="img/logo.png"></div>
+    <div class="navToggleImg"><button onclick="openNav()"><img src="img/navToggle.png"></button></div>
+    <div><a href="/"><img src="img/logo.png"></a></div>
     <div class="userImg"><button><img src="img/user.png"></button></div>
+</div>
+<div id="overlay" onclick="closeNav()"></div>
+<div class="nav" id="nav">
+    <div><img src="img/tuxedotrades.png" style="width: 15em;"></div>
+    <ul id="navOptions">
+        <% if (true) { %> <!-- add db user variable -->
+            <li><img src=""><a href="/portfolio">Portfolio</a></li>
+            <li><img src=""><a href="/transfer">Transfer</a></li>
+            <li><img src=""><a href="/help">Help</a></li>
+            <li><img src=""><a href="/about">About Us</a></li>
+            <li><img src=""><button>Logout</button></li>
+        <% } else { %>
+            <li><img src=""><a href="/">Home</a></li>
+            <li><img src=""><a href="/help">Help</a></li>
+            <li><img src=""><a href="/about">About Us</a></li>
+        <% } %>
+    </ul>
 </div>

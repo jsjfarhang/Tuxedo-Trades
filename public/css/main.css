@@ -69,6 +69,10 @@
     height: 3em;
 }
 
+.loginButton button:hover, .createAccountButton button:hover {
+    transform: scale(103%);
+}
+
 .createAccountButton button {
     background-color: black;
     color: white;
