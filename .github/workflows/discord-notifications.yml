@@ -1,4 +1,4 @@
-name: Notify Discord on Push
+name: Discord Notifications
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - live
       - dev
   workflow_run:
-    workflows: ["discord-notifications.yml"]
+    workflows: ["Discord Notifications"]
     types:
       - completed
 
