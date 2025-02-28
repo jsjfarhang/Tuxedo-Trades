@@ -29,10 +29,18 @@ app.get('/', (req, res) => {
   res.render(__dirname + '/views/login.ejs');
 });
 
+app.get('/help', (req, res) => {
+  res.render(__dirname + '/views/help.ejs');
+});
+
 app.get('/signup', (req, res) => {
   res.render(__dirname + '/views/signup.ejs');
 });
 
-app.get('/help', (req, res) => {
-  res.render(__dirname + '/views/help.ejs');
+app.get('/trading', (req, res) => {
+  res.render(__dirname + '/views/trading.ejs');
+});
+
+app.get('/transfer', (req, res) => {
+  res.render(__dirname + '/views/transfer.ejs');
 });
