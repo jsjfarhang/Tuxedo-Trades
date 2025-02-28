@@ -13,8 +13,33 @@ jobs:
   discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Discord Notification
-        if: github.event.pull_request.merged == true
+      - name: Send Discord Notification for Push
+        if: github.event_name == 'push'
+        run: |
+          USER_AVATAR_URL="https://avatars.githubusercontent.com/${{ github.actor }}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          COMMIT_URL="${{ github.event.head_commit.url }}"
+          COMMIT_MESSAGE="${{ github.event.head_commit.message || 'Merge' }}"
+
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{
+            "embeds": [{
+              "title": "${{ github.actor }} pushed to '"$BRANCH_NAME"'",
+              "url": "'"$COMMIT_URL"'",
+              "description": "'"$COMMIT_MESSAGE"'",
+              "color": 10181046,
+              "author": {
+                "name": "${{ github.actor }}",
+                "url": "https://github.com/${{ github.actor }}",
+                "icon_url": "'"$USER_AVATAR_URL"'"
+              }
+            }]
+          }' \
+          "${{ secrets.DISCORD_WEBHOOK }}"
+
+      - name: Send Discord Notification for PR Merge
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         run: |
           USER_AVATAR_URL="https://avatars.githubusercontent.com/${{ github.actor }}"
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
@@ -25,7 +50,7 @@ jobs:
           -X POST \
           -d '{
             "embeds": [{
-              "title": "${{ github.actor }} pushed to '"$BRANCH_NAME"'",
+              "title": "${{ github.actor }} merged into '"$BRANCH_NAME"'",
               "url": "'"$COMMIT_URL"'",
               "description": "'"$COMMIT_MESSAGE"'",
               "color": 10181046,
