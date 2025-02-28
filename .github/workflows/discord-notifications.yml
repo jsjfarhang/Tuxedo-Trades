@@ -15,4 +15,4 @@ jobs:
           curl -H "Content-Type: application/json" \
           -X POST \
           -d '{"content": "**Tuxedo Trades Github Push** Commit by: ${{ github.actor }} in ${{ github.repository }}"}' \
-          "https://discord.com/api/webhooks/1345154189864734874/BkN-x6zyDXKEgEs3qbR9SaqvFjJwQn6CoT4TfZqmYos8KyrgLcUYq7_5Co-tJjtNr5ZL"
+          "${{ secrets.DISCORD_WEBHOOK }}"
