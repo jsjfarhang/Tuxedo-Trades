@@ -9,7 +9,34 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  
+  <div class="helpbox">
+    <header>Need Assistance?</header>
+    <p>Fill out the form below and someone from our team will reach out!</p><br>
+    <form class="helpform">
+      <div class="leftform">
+        <p>First Name:</p>
+        <input type="text" placeholder="First Name"><br>
+        <p>Last Name:</p>
+        <input type="text" placeholder="Last Name"><br>
+        <p>Email:</p>
+        <input type="email" placeholder="TuxedoTim@example.com"><br>
+        
+      </div>
+      <div class="rightform">
+        <p>Issue Type:</p>
+        <input list="Service Type" placeholder="Choose Service Type"><br>
+        <datalist id="Service Type">
+          <option value="Account">
+          <option value="Technical">
+          <option value="Billing">
+          <option value="Other">
+        </datalist>
+        <p>How can we help?</p>
+        <input class="servicetext" type="text"><br>
+        <input type="submit">
+      </div>
+    </form>
+  </div>
   <%- include('../blocks/footer') %>
   <script src="js/nav.js"></script>
 </body>
