@@ -9,7 +9,31 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  
+  <div class="helpbox">
+    <header>Account Transfers</header>
+    <p>Specify your transaction and select "Submit" to process.</p><br>
+    <form class="Transfers">
+      <div class="leftform">
+        <p>Transfer from:</p>
+        <input list="TransferList" placeholder="Choose Account"><br>
+        <datalist id="TransferList">
+          <option value="CHASE BANK SAVINGS">
+          <option value="CHASE BANK CHECKING">
+          <option value="Account Balance">
+        </datalist>
+      </div>
+      <div class="rightform">
+        <p>Transfer to:</p>
+        <input list="TransferList" placeholder="Choose Account"><br>
+        <datalist id="TransferList">
+          <option value="CHASE BANK SAVINGS">
+          <option value="CHASE BANK CHECKING">
+          <option value="Account Balance">
+        </datalist>
+      </div>
+      <input type="submit">
+    </form>
+  </div>
   <%- include('../blocks/footer') %>
   <script src="/js/nav.js"></script>
 </body>
