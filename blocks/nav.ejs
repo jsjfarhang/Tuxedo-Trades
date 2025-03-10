@@ -8,7 +8,7 @@
     <div><img src="/img/tuxedotrades.png" style="width: 15em;"></div>
     <ul id="navOptions">
         <% if (user) { %>
-            <li><img src=""><a href="/">Dashboard</a></li>
+            <li><img src=""><a href="/<%= user.username %>/dashboard">Dashboard</a></li>
             <li><img src=""><a href="/<%= user.username %>/transfer">Transfer</a></li>
             <li><img src=""><a href="/help">Help</a></li>
             <li><img src=""><a href="/about">About Us</a></li>
