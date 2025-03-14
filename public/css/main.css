@@ -139,9 +139,8 @@
 
 /* there may be css classes that can be reused from the login page */
 .helpbox {
-    justify-content: center;
     padding: 1em;
-    margin: 20%;
+    margin: 15%;
     margin-top: 75px;
     width: 60%;
     background-color: #CEDDE2;
@@ -256,7 +255,7 @@ form.helpform > div > input.servicetext{
 @media (max-width: 340px) {
     .helpbox{
         width: 80%;
-        margin: 0;
+        margin: 10%;
         margin-top: 20px;
         margin-left: 5%;
         padding: .5em;
