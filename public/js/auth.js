@@ -15,9 +15,19 @@ async function authenticateUser() {
         body: JSON.stringify({ username, password }),
     });
     const data = await response.json();
-    if (response.status === 200) {
-        window.location.href = `/${data.user.username}/dashboard`;
-    } else {
-        // invalid login error message
+    if (data.redirectUrl) window.location.href = data.redirectUrl;
+    if (response.status === 400) {
+        // 'Username and password are required'
     }
+    if (response.status === 401) {
+        // 'Invalid username or password'
+    }
+}
+
+async function logoutUser() {
+    const response = await fetch('/logout', {
+        method: 'GET',
+        credentials: 'same-origin',
+    });
+    window.location.href = '/logout';
 }

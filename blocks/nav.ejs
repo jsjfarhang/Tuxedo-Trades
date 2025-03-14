@@ -1,6 +1,6 @@
 <div class="header">
     <div class="navToggleImg"><button onclick="openNav()"><img src="/img/navToggle.png"></button></div>
-    <div><a href="/"><img src="/img/logo.png"></a></div>
+    <div><a href="<% if (user) { %>/<%= user.username %>/dashboard<% } else { %>/<% } %>"><img src="/img/logo.png"></a></div>
     <div class="userImg"><button><img src="/img/user.png"></button></div>
 </div>
 <div id="overlay" onclick="closeNav()"></div>
@@ -12,7 +12,7 @@
             <li><img src=""><a href="/<%= user.username %>/transfer">Transfer</a></li>
             <li><img src=""><a href="/help">Help</a></li>
             <li><img src=""><a href="/about">About Us</a></li>
-            <li><img src=""><button>Logout</button></li>
+            <li><img src=""><button onclick="logoutUser()">Logout</button></li>
         <% } else { %>
             <li><img src=""><a href="/">Home</a></li>
             <li><img src=""><a href="/help">Help</a></li>
