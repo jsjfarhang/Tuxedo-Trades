@@ -110,13 +110,11 @@
 .helpbox {
     justify-content: center;
     padding: 1em;
-    margin: 2em;
-    margin-left: 25%;
+    margin: 20%;
     margin-top: 75px;
-    width: 50%;
+    width: 60%;
     background-color: #CEDDE2;
     border-radius: 1em;
-    min-height: 550px;
 }
 
 .helpbox > header, .helpbox > p {
@@ -125,7 +123,6 @@
     padding-bottom: 0;
     display: flex;
     justify-content: center;
-
 }
 
 .helpbox > header {
@@ -136,8 +133,8 @@
 
 .helpform {
     display:flex;
-    margin-left: 5%;
-    width: 90%;
+    margin-left: 2.5%;
+    width: 95%;
     padding-bottom: 20px;
 }
 
@@ -153,15 +150,14 @@ form.helpform > div > p {
 }
 
 form.helpform > div > input.servicetext{
-    min-height: 100px;
+    min-height: 150px;
     text-align: left;
     vertical-align: top;
 }
 
 .leftform {
     display: flex;
-    justify-content: center;
-    align-items: right;
+    align-items: top;
     flex-direction: column;
     width: 50%;
     padding: 10px;
@@ -176,4 +172,41 @@ form.helpform > div > input.servicetext{
     width: 50%;
     padding: 10px;
     min-height: 200px;
+}
+
+@media (max-width: 1200px) {
+    .helpbox{
+        width: 70%;
+        margin-left: 10%;
+    }
+
+    .helpform{
+        display: block;
+    }
+
+    .leftform{
+        width: 100%;
+    }
+
+    .rightform{
+        width: 100%;
+    }    
+}
+@media (max-width: 749px) {
+    .helpbox{
+        width: 80%;
+        margin-left: 5%;
+    }
+
+    .helpform{
+        display: block;
+    }
+
+    .leftform{
+        width: 100%;
+    }
+
+    .rightform{
+        width: 100%;
+    }
 }
