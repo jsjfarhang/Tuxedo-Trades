@@ -105,3 +105,73 @@
 /* HELP PAGE */
 
 /* there may be css classes that can be reused from the login page */
+.helpbox {
+    justify-content: center;
+    padding: 1em;
+    margin: 2em;
+    margin-left: 25%;
+    margin-top: 75px;
+    width: 50%;
+    background-color: #CEDDE2;
+    border-radius: 1em;
+    min-height: 550px;
+}
+
+.helpbox > header, .helpbox > p {
+    margin: 1em;
+    padding: .5em;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: center;
+
+}
+
+.helpbox > header {
+    font-weight: bold;
+    font-size: xx-large;
+    padding-top: 0;
+}
+
+.helpform {
+    display:flex;
+    margin-left: 5%;
+    width: 90%;
+    padding-bottom: 20px;
+}
+
+form.helpform > div > input {
+    width: 80%;
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+form.helpform > div > p {
+    padding: .5em;
+}
+
+form.helpform > div > input.servicetext{
+    min-height: 100px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.leftform {
+    display: flex;
+    justify-content: center;
+    align-items: right;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+    min-height: 200px;
+}
+
+.rightform {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+    min-height: 200px;
+}
