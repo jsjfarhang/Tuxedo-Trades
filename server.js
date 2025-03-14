@@ -13,12 +13,17 @@ app.use(cookieParser());
 
 connectDb();
 
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+/* middleware */
+
 const verifyToken = promisify(jwt.verify);
 const authenticateToken = async (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) {
-    return next();
-  }
+  if (!token) return next();
   const x = await verifyToken(token, process.env.JWT_SECRET);
   const user = await User.findById(x.id);
   if (!user) return next();
@@ -26,10 +31,6 @@ const authenticateToken = async (req, res, next) => {
   req.token = token;
   next();
 };
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
 
 
 /* routes */
@@ -100,9 +101,7 @@ app.post('/stocks', async (req, res) => { // create new stock
 
 app.get('/', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (user) {
-    res.redirect(`/${user.username}/dashboard`);
-  }
+  if (user) res.redirect(`/${user.username}/dashboard`);
   res.render(__dirname + '/views/login.ejs', { user });
 });
 
@@ -143,9 +142,7 @@ app.get('/:username/transactions', authenticateToken, async (req, res) => { // u
   const user = req.user;
   const transactions = await Transaction.find({ userId: user._id });
   res.json(transactions);
-  if (!user) {
-    return res.redirect(`/${user.username}/dashboard`);
-  }
+  if (!user) return res.redirect(`/${user.username}/dashboard`);
   res.render(__dirname + '/views/transactions.ejs', { user });
 });
 

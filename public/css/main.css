@@ -61,19 +61,21 @@
     height: 3em;
 }
 
-.loginButton button:hover, .createAccountButton button:hover {
+.loginButton button:hover, .createAccountButton a:hover {
     transform: scale(103%);
 }
 
-.createAccountButton button {
+.createAccountButton a {
     background-color: black;
     color: white;
     border: 2px solid black;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     font-weight: 800;
     font-size: large;
-    width: 12em;
-    height: 3em;
+    width: 11em;
+    height: 1.5em;
 }
 
 @media (max-width: 1200px) {
