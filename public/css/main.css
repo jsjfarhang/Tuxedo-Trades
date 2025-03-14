@@ -102,7 +102,38 @@
 /* CREATE ACCOUNT PAGE */
 
 /* there may be css classes that can be reused from the login page */
+.signup{
+    display:flex;
+    margin-left: 25%;
+    width: 50%;
+    padding-bottom: 20px;
+    flex-direction: column;
+}
 
+.signup > input {
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.signup > p {
+    padding: 1em;
+}
+
+@media (max-width: 1200px) {
+    .signup{
+        width: 70%;
+        margin-left: 15%;
+    }
+
+}
+@media (max-width: 749px) {
+    .signup{
+        width: 80%;
+        margin-left: 10%;
+    }
+
+}
 
 /* HELP PAGE */
 
@@ -147,6 +178,7 @@ form.helpform > div > input {
 
 form.helpform > div > p {
     padding: .5em;
+    align-self: flex-start;
 }
 
 form.helpform > div > input.servicetext{
@@ -157,7 +189,7 @@ form.helpform > div > input.servicetext{
 
 .leftform {
     display: flex;
-    align-items: top;
+    align-items: center;
     flex-direction: column;
     width: 50%;
     padding: 10px;
@@ -167,7 +199,7 @@ form.helpform > div > input.servicetext{
 .rightform {
     display: flex;
     justify-content: center;
-    align-items: left;
+    align-items: center;
     flex-direction: column;
     width: 50%;
     padding: 10px;
@@ -177,11 +209,13 @@ form.helpform > div > input.servicetext{
 @media (max-width: 1200px) {
     .helpbox{
         width: 70%;
-        margin-left: 10%;
+        margin-left: 15%;
     }
 
     .helpform{
         display: block;
+        width: 90%;
+        margin-left: 5%;
     }
 
     .leftform{
@@ -191,11 +225,18 @@ form.helpform > div > input.servicetext{
     .rightform{
         width: 100%;
     }    
+
+    form.helpform > div > input {
+        width: 90%;
+        height: 3em;
+        padding: .25em;
+        box-shadow: 2px 2px 5px gray;
+    }
 }
 @media (max-width: 749px) {
     .helpbox{
         width: 80%;
-        margin-left: 5%;
+        margin-left: 10%;
     }
 
     .helpform{

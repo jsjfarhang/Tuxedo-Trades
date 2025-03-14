@@ -9,7 +9,23 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  signup
+  <div class="helpbox">
+    <header>Create An Account</header>
+    <p>Fill out your information below!</p>
+    <form class="signup">
+      <p>First Name:</p>
+      <input type="text" placeholder="First Name"><br>
+      <p>Last Name:</p>
+      <input type="text" placeholder="Last Name"><br>
+      <p>Username:</p>
+      <input type="text" placeholder="TuxedoTed"><br>
+      <p>Password:</p>
+      <input type="text" placeholder="**********"><br>
+      <p>Email:</p>
+      <input type="text" placeholder="TuxedoTed@example.com"><br>
+      <input type="submit">
+    </form>
+  </div>
   <%- include('../blocks/footer') %>
   <script src="js/nav.js"></script>
   <script src="js/auth.js"></script>
