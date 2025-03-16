@@ -120,6 +120,24 @@ app.get('/about', authenticateToken, async (req, res) => {
   res.render(__dirname + '/views/about.ejs', { user });
 });
 
+app.get('/:username/history', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  res.render(__dirname + '/views/history.ejs', { user });
+});
+
+app.get('/fetchTrans', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  try {
+    const transactions = await Transaction.find({userId: user}).sort({ timestamp: -1});
+    res.json(transactions);
+  }catch (error) {
+    res.status(400).json({ error: 'Error creating history table', message: error.message });
+  }
+})
+
+
 app.get('/:username/dashboard', authenticateToken, async (req, res) => {
   const user = req.user;
   if (!user) return res.redirect('/');

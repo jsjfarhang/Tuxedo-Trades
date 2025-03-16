@@ -11,12 +11,23 @@
   <%- include('../blocks/nav') %>
   <div>
     <header>Transaction History</header>
-    <div>
-    <!-- script? lib? -->
-    </div>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Ticker</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   </div>
   <%- include('../blocks/footer') %>
   <script src="/js/nav.js"></script>
   <script src="/js/auth.js"></script>
+  <script src="/js/tables.js"></script>
 </body>
 </html>

@@ -50,12 +50,3 @@ async function addUser(signupData) {
         body: JSON.stringify({ fname, lname, username, password, email, admin, bankName, bankBalance }),
     })
 }
-
-document.addEventListener("DOMContentLoaded", function(){
-    document.getElementById("signupForm").addEventListener("submit", function(event){
-        event.preventDefault();
-
-        const signupData = new FormData(this)
-        addUser(signupData)
-    })
-})

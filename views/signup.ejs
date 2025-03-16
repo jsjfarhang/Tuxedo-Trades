@@ -34,5 +34,15 @@
   <%- include('../blocks/footer') %>
   <script src="js/nav.js"></script>
   <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById("signupForm").addEventListener("submit", function(event){
+        event.preventDefault();
+
+        const signupData = new FormData(this)
+        addUser(signupData)
+      })
+    })
+  </script>
 </body>
 </html>
