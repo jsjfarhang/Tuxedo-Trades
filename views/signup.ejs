@@ -12,18 +12,23 @@
   <div class="helpbox">
     <header>Create An Account</header>
     <p>Fill out your information below!</p>
-    <form class="signup">
+    <form class="signup" id="signupForm">
       <p>First Name:</p>
-      <input type="text" placeholder="First Name">
+      <input type="text" placeholder="First Name" id="fname" name="fname" required>
       <p>Last Name:</p>
-      <input type="text" placeholder="Last Name">
+      <input type="text" placeholder="Last Name" id="lname" name="lname" required>
       <p>Username:</p>
-      <input type="text" placeholder="TuxedoTed">
+      <input type="text" placeholder="TuxedoTed" id="username" name="username" required>
       <p>Password:</p>
-      <input type="text" placeholder="**********">
+      <input type="text" placeholder="**********" id="password" name="password" required>
       <p>Email:</p>
-      <input type="text" placeholder="TuxedoTed@example.com"><br><br>
-      <input type="submit">
+      <input type="text" placeholder="TuxedoTed@example.com" id="email" name="email" required>
+      <p>Name of Bank:</p>
+      <input type="text" placeholder="Emperor Trust" id="bankName" name="bankName" required>
+      <p>Bank Balance:</p>
+      <input type="text" placeholder="$0,000.00" id="bankBalance" name="bankBalance" required>
+      <br><br>
+      <input type="submit" class="signupsubmit">
     </form>
   </div>
   <%- include('../blocks/footer') %>

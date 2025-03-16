@@ -7,11 +7,13 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   admin: { type: Boolean, default: false },
-  cashAccount: {
+  bankAccount: {
     bankName: { type: String },
-    routingNumber: { type: Number },
-    accountNumber: { type: Number }
+    bankBalance: { type: Number}
   },
+  cashAccount: {
+    balance: {type: Number}
+  }
 });
 const User = mongoose.model('User', userSchema);
 

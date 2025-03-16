@@ -61,8 +61,8 @@ app.post('/login', async (req, res) => { // login user
 
 app.post('/users', async (req, res) => { // create new user
   try { // add code to make sure there are no duplicate users
-    const { username, password, email, admin } = req.body;
-    const newUser = new User({ username, password, email, admin });
+    const { fname, lname, username, password, email, admin, bankName, bankBalance } = req.body;
+    const newUser = new User({ fname, lname, username, password, email, admin, bankName, bankBalance });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {

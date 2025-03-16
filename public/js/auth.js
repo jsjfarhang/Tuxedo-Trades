@@ -31,3 +31,31 @@ async function logoutUser() {
     });
     window.location.href = '/logout';
 }
+
+async function addUser(signupData) {
+    const fname = signupData.get("fname");
+    const lname = signupData.get("lname");
+    const username = signupData.get("username");
+    const password = signupData.get("password");
+    const email = signupData.get("email");
+    const admin = false;
+    const bankName = signupData.get("bankName");
+    const bankBalance = Number(signupData.get("bankBalance"));
+    
+    const response = await fetch('/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fname, lname, username, password, email, admin, bankName, bankBalance }),
+    })
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("signupForm").addEventListener("submit", function(event){
+        event.preventDefault();
+
+        const signupData = new FormData(this)
+        addUser(signupData)
+    })
+})
