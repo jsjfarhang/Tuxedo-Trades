@@ -289,3 +289,15 @@ form.helpform > div > input.servicetext{
         padding: 0;
     }
 }
+
+/* TRANSFER PAGE */
+.form-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.leftform, .rightform {
+    width: 48%;
+}

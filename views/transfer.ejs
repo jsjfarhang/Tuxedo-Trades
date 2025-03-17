@@ -13,26 +13,29 @@
     <header>Account Transfers</header>
     <p>Specify your transaction and select "Submit" to process.</p><br>
     <form class="Transfers">
-      <div class="leftform">
-        <p>Transfer from:</p>
-        <input list="TransferList" placeholder="Choose Account"><br>
-        <datalist id="TransferList">
-          <option value="CHASE BANK SAVINGS">
-          <option value="CHASE BANK CHECKING">
-          <option value="Account Balance">
-        </datalist>
-        <p>Transfer to:</p>
-        <input list="TransferList" placeholder="Choose Account"><br>
-        <datalist id="TransferList">
-          <option value="CHASE BANK SAVINGS">
-          <option value="CHASE BANK CHECKING">
-          <option value="Account Balance">
-        </datalist>
-      </div>
-      <div class="rightform">
-        <p>Amount:</p>
-        <input type="text" placeholder="Amount"><br>
-        <input type="submit">
+      <div class="form-columns">
+        <div class="leftform">
+          <p>Transfer from:</p>
+          <input list="TransferList" placeholder="Choose Account"><br>
+          <datalist id="TransferList">
+            <option value="CHASE BANK SAVINGS">
+            <option value="CHASE BANK CHECKING">
+            <option value="Account Balance">
+          </datalist>
+          <p>Amount:</p>
+          <input type="text" placeholder="Amount"><br>
+        </div>
+        
+        <div class="rightform">
+          <p>Transfer to:</p>
+          <input list="TransferList" placeholder="Choose Account"><br>
+          <datalist id="TransferList">
+            <option value="CHASE BANK SAVINGS">
+            <option value="CHASE BANK CHECKING">
+            <option value="Account Balance">
+          </datalist>
+          <input type="submit">
+        </div>
       </div>
     </form>
   </div>
