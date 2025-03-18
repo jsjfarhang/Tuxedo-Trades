@@ -36,6 +36,11 @@ button:hover, a:hover {
   cursor: pointer;
 }
 
+.error-text {
+  font-style: italic;
+  color: red;
+}
+
 /* NAV */
 
 .header {
