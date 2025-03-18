@@ -72,9 +72,9 @@ app.post('/users', async (req, res) => { // create new user
 
 app.post('/transactions', async (req, res) => { // create new transaction
   try { // add code to verify no duplicate transactions
-    const { transId, buySell, ticker, quantity, userId, price } = req.body;
+    const { timestamp, buySell, ticker, quantity, userId, price } = req.body;
     const newTransaction = new Transaction({
-      transId,
+      timestamp,
       buySell,
       ticker,
       quantity,
@@ -137,6 +137,12 @@ app.get('/fetchTrans', authenticateToken, async (req, res) => {
   }
 })
 
+// <!-- Do not send to live -->
+app.get('/:username/createtesttrans', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  res.render(__dirname + '/views/createtesttrans.ejs', { user });
+});
 
 app.get('/:username/dashboard', authenticateToken, async (req, res) => {
   const user = req.user;

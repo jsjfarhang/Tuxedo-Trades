@@ -1,5 +1,5 @@
 async function fetchTransactions() {
-    const response = await fetch('/:username/transactions');
+    const response = await fetch('/fetchTrans');
     const transactions = await response.json();
 
     const table = document.getElementById('historyTable');
@@ -18,4 +18,4 @@ async function fetchTransactions() {
         priceCell.textContent = transactions.price;
     })
 }
-window.onload = fetchTransactions;
+

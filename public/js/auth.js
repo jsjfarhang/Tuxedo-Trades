@@ -50,3 +50,28 @@ async function addUser(signupData) {
         body: JSON.stringify({ fname, lname, username, password, email, admin, bankName, bankBalance }),
     })
 }
+
+async function addTestTrans(tranForm, user) { //<!-- Do not send to live -->
+    const timestamp = tranForm.get("timestamp");
+    const buySell = tranForm.get("type");
+    const ticker = tranForm.get("ticker");
+    const quantity = tranForm.get("quantity");
+    const userId = user;
+    const price = tranForm.get("price");
+
+    
+    const response = await fetch('/transactions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            timestamp,
+            buySell,
+            ticker,
+            quantity,
+            userId,
+            price 
+        }),
+    })
+}
