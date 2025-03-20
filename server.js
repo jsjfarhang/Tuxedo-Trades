@@ -95,7 +95,7 @@ app.post('/transactions', async (req, res) => { // create new transaction
     const { timestamp, buySell, ticker, quantity, userId, price } = req.body;
     const newTransaction = new Transaction({
       timestamp,
-      buySell,
+      type,
       ticker,
       quantity,
       userId,
@@ -166,35 +166,17 @@ app.get('/about', authenticateToken, async (req, res) => {
   res.render(__dirname + '/views/about.ejs', { user });
 });
 
+app.get('/:username/dashboard', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  res.render(__dirname + '/views/dashboard.ejs', { user });
+});
+
 app.get('/:username/history', authenticateToken, async (req, res) => {
   const user = req.user;
   if (!user) return res.redirect('/');
   const transactions = await Transaction.find({ userId: user._id });
   res.render(__dirname + '/views/history.ejs', { user, transactions });
-});
-
-app.get('/fetchTrans', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect('/');
-  try {
-    const transactions = await Transaction.find({userId: user}).sort({ timestamp: -1});
-    res.json(transactions);
-  }catch (error) {
-    res.status(400).json({ error: 'Error creating history table', message: error.message });
-  }
-})
-
-/*
-app.get('/:username/createtesttrans', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect('/');
-  res.render(__dirname + '/views/createtesttrans.ejs', { user });
-});*/
-
-app.get('/:username/dashboard', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect('/');
-  res.render(__dirname + '/views/dashboard.ejs', { user });
 });
 
 app.get('/:username/trading', authenticateToken, async (req, res) => {
@@ -217,3 +199,22 @@ app.get('/logout', (req, res) => {
   });
   res.redirect('/');
 });
+
+/*
+app.get('/fetchTrans', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  try {
+    const transactions = await Transaction.find({userId: user}).sort({ timestamp: -1});
+    res.json(transactions);
+  }catch (error) {
+    res.status(400).json({ error: 'Error creating history table', message: error.message });
+  }
+})*/
+
+/*
+app.get('/:username/createtesttrans', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  res.render(__dirname + '/views/createtesttrans.ejs', { user });
+});*/
