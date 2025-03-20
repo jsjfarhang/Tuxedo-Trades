@@ -290,7 +290,9 @@ form.helpform > div > input.servicetext{
     }
 }
 
+
 /* TRANSFER PAGE */
+
 form.Transfers > div > input {
     width: 80%;
     height: 3em;
@@ -316,3 +318,34 @@ form.Transfers {
     padding: 10px;
     min-height: 200px;
 }
+
+
+/* HISTORY PAGE */
+
+#historyTable {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    color: #ccc;
+    background-color: #333;
+  }
+  
+  #historyTable th, #historyTable td {
+    padding: 6px 10px;
+    border: 1px solid #444;
+  }
+  
+  #historyTable th {
+    background-color: #444;
+    font-weight: bold;
+  }
+  
+  #historyTable tr:nth-child(even) {
+    background-color: #555;
+  }
+  
+  #historyTable tr:hover {
+    background-color: #666;
+  }
+  

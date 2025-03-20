@@ -33,24 +33,36 @@ async function logoutUser() {
 }
 
 async function addUser(signupData) {
+    const addUserError = document.getElementById("addUserError");
     const fname = signupData.get("fname");
     const lname = signupData.get("lname");
     const username = signupData.get("username");
     const password = signupData.get("password");
     const email = signupData.get("email");
-    const admin = false;
     const bankName = signupData.get("bankName");
-    const bankBalance = Number(signupData.get("bankBalance"));
-    
-    const response = await fetch('/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ fname, lname, username, password, email, admin, bankName, bankBalance }),
-    })
+    const balance = Number(signupData.get("bankBalance"));
+    try {
+        const response = await fetch('/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fname, lname, username, password, email, bankName, balance }),
+        });
+        const result = await response.json();
+        if (!response.ok) {
+            addUserError.textContent = result.error || 'An error occurred during account creation.';
+        } else {
+            addUserError.textContent = '';
+            alert('Account created! Please login.');
+            window.location.href = `/`;
+        }
+    } catch (error) {
+        addUserError.textContent = 'An unexpected error occurred. Please try again later.';
+    }
 }
 
+/*
 async function addTestTrans(tranForm, user) { //<!-- Do not send to live -->
     const timestamp = tranForm.get("timestamp");
     const buySell = tranForm.get("type");
@@ -74,4 +86,53 @@ async function addTestTrans(tranForm, user) { //<!-- Do not send to live -->
             price 
         }),
     })
+}*/
+
+if (window.location.pathname.includes('/transfer')) {
+    const transferForm = document.getElementById('transfer');
+    const amountError = document.getElementById('amountError');
+    transferForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const transferFrom = document.getElementById('transferFrom').value;
+        const transferTo = document.getElementById('transferTo').value;
+        const amount = Number(document.getElementById('amount').value);
+        amountError.textContent = '';
+        if (isNaN(amount) || amount <= 0) {
+            amountError.textContent = 'Amount must be greater than $0.';
+            return;
+        }
+        if (!transferFrom || !transferTo) {
+            amountError.textContent = 'Please select both accounts for transfer.';
+            return;
+        }
+        if (transferTo == transferFrom) {
+            amountError.textContent = 'Must select different accounts.';
+            return;
+        }
+        try {
+            const response = await fetch('/transfer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    fromAccount: transferFrom,
+                    toAccount: transferTo,
+                    amount: amount
+                }),
+            });
+            const result = await response.json();
+            if (!response.ok) {
+                amountError.textContent = result.error || 'An error occurred during the transfer.';
+            } else {
+                amountError.textContent = '';
+                alert('Transfer successful!');
+                window.location.reload();
+            }
+        } catch (error) {
+            amountError.textContent = 'An unexpected error occurred. Please try again later.';
+        }
+    });
 }

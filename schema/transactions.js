@@ -7,7 +7,7 @@ const transactionSchema = new mongoose.Schema({
   quantity: { type: Number, required: true },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   price: { type: Number, required: true }
-});
+}, { versionKey: false });
 const Transaction = mongoose.model('Transaction', transactionSchema);
 
 module.exports = Transaction;

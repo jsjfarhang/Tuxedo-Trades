@@ -22,6 +22,15 @@
         </tr>
       </thead>
       <tbody>
+        <% transactions.forEach(transaction => { %>
+          <tr>
+            <td><%= transaction.timestamp %></td>
+            <td><%= transaction.buySell %></td>
+            <td><%= transaction.ticker %></td>
+            <td><%= transaction.quantity %></td>
+            <td><%= transaction.price %></td>
+          </tr>
+        <% }); %>
       </tbody>
     </table>
   </div>
