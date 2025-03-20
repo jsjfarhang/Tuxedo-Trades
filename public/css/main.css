@@ -322,30 +322,42 @@ form.Transfers {
 
 /* HISTORY PAGE */
 
-#historyTable {
+.transaction-container {
     width: 60%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    font-size: 0.9em;
-    color: #ccc;
-    background-color: #333;
+    margin: 0 auto;
+    padding: 20px;
   }
-  
-  #historyTable th, #historyTable td {
-    padding: 6px 10px;
-    border: 1px solid #444;
-  }
-  
-  #historyTable th {
-    background-color: #444;
+
+.transaction-header {
+    font-size: 1.5em;
     font-weight: bold;
-  }
-  
-  #historyTable tr:nth-child(even) {
-    background-color: #555;
-  }
-  
-  #historyTable tr:hover {
-    background-color: #666;
-  }
-  
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1f1f1f;
+    color: #fff;
+}
+
+#historyTable th, #historyTable td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+#historyTable th {
+    background-color: #444;
+    color: #fff;
+}
+
+#historyTable tbody tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+#historyTable tbody tr:hover {
+    background-color: #3d3d3d;
+}

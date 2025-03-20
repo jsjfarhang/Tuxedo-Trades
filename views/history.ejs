@@ -9,8 +9,8 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  <div>
-    <header>Transaction History</header>
+  <div class="transaction-container">
+    <header class="transaction-header">Transaction History</header>
     <table id="historyTable">
       <thead>
         <tr>
@@ -35,6 +35,5 @@
     </table>
   </div>
   <%- include('../blocks/footer') %>
-  <script src="/js/tables.js">window.onload = fetchTransactions()</script>
 </body>
 </html>
