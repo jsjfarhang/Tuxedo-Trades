@@ -22,7 +22,7 @@ app.listen(PORT, () => {
 /* middleware */
 
 const verifyToken = promisify(jwt.verify);
-const authenticateToken = async (req, res, next) => {
+const authenticateToken = async (req, next) => {
   const token = req.cookies.token;
   if (!token) return next();
   const x = await verifyToken(token, process.env.JWT_SECRET);
@@ -92,7 +92,7 @@ app.post('/users', async (req, res) => { // create new user
 
 app.post('/transactions', async (req, res) => { // create new transaction
   try {
-    const { timestamp, buySell, ticker, quantity, userId, price } = req.body;
+    const { timestamp, type, ticker, quantity, userId, price } = req.body;
     const newTransaction = new Transaction({
       timestamp,
       type,
@@ -111,7 +111,7 @@ app.post('/transactions', async (req, res) => { // create new transaction
 app.post('/stocks', async (req, res) => { // create new stock
   try {
     const { ticker, currentValue, volume, marketCap } = req.body;
-    const newStock = new Stock({ ticker, currentValue, volume, marketCap });
+    const newStock = new Stock({ ticker, company, currentValue, volume, marketCap });
     await newStock.save();
     res.status(201).json(newStock);
   } catch (error) {
