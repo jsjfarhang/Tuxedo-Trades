@@ -22,7 +22,7 @@ app.listen(PORT, () => {
 /* middleware */
 
 const verifyToken = promisify(jwt.verify);
-const authenticateToken = async (req, next) => {
+const authenticateToken = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) return next();
   const x = await verifyToken(token, process.env.JWT_SECRET);
