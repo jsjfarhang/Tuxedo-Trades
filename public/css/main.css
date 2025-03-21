@@ -61,19 +61,21 @@
     height: 3em;
 }
 
-.loginButton button:hover, .createAccountButton button:hover {
+.loginButton button:hover, .createAccountButton a:hover {
     transform: scale(103%);
 }
 
-.createAccountButton button {
+.createAccountButton a {
     background-color: black;
     color: white;
     border: 2px solid black;
+    display: flex;
+    justify-content: center;
     padding: 10px;
     font-weight: 800;
     font-size: large;
-    width: 12em;
-    height: 3em;
+    width: 11em;
+    height: 1.5em;
 }
 
 @media (max-width: 1200px) {
@@ -100,21 +102,53 @@
 /* CREATE ACCOUNT PAGE */
 
 /* there may be css classes that can be reused from the login page */
+.signup{
+    display:flex;
+    margin-left: 25%;
+    width: 50%;
+    padding-bottom: 20px;
+    flex-direction: column;
+}
 
+.signup > input {
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.signup > p {
+    padding: 1em;
+}
+
+.signupsubmit {
+    margin-bottom: 2em;
+}
+
+@media (max-width: 1200px) {
+    .signup{
+        width: 70%;
+        margin-left: 15%;
+    }
+
+}
+@media (max-width: 749px) {
+    .signup{
+        width: 80%;
+        margin-left: 10%;
+    }
+
+}
 
 /* HELP PAGE */
 
 /* there may be css classes that can be reused from the login page */
 .helpbox {
-    justify-content: center;
     padding: 1em;
-    margin: 2em;
-    margin-left: 25%;
+    margin: 15%;
     margin-top: 75px;
-    width: 50%;
+    width: 60%;
     background-color: #CEDDE2;
     border-radius: 1em;
-    min-height: 550px;
 }
 
 .helpbox > header, .helpbox > p {
@@ -123,7 +157,6 @@
     padding-bottom: 0;
     display: flex;
     justify-content: center;
-
 }
 
 .helpbox > header {
@@ -134,8 +167,8 @@
 
 .helpform {
     display:flex;
-    margin-left: 5%;
-    width: 90%;
+    margin-left: 2.5%;
+    width: 95%;
     padding-bottom: 20px;
 }
 
@@ -148,20 +181,20 @@ form.helpform > div > input {
 
 form.helpform > div > p {
     padding: .5em;
+    align-self: flex-start;
 }
 
 form.helpform > div > input.servicetext{
-    min-height: 100px;
+    min-height: 150px;
     text-align: left;
     vertical-align: top;
 }
 
 .leftform {
     display: flex;
-    justify-content: center;
-    align-items: right;
+    align-items: center;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     padding: 10px;
     min-height: 200px;
 }
@@ -169,9 +202,162 @@ form.helpform > div > input.servicetext{
 .rightform {
     display: flex;
     justify-content: center;
-    align-items: left;
+    align-items: center;
     flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    min-height: 200px;
+}
+
+@media (max-width: 1200px) {
+    .helpbox{
+        width: 70%;
+        margin-left: 15%;
+    }
+
+    .helpform{
+        display: block;
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .leftform{
+        width: 100%;
+    }
+
+    .rightform{
+        width: 100%;
+    }    
+
+    form.helpform > div > input {
+        width: 90%;
+        height: 3em;
+        padding: .25em;
+        box-shadow: 2px 2px 5px gray;
+    }
+}
+
+@media (max-width: 749px) {
+    .helpbox{
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .helpform{
+        display: block;
+    }
+
+    .leftform{
+        width: 100%;
+    }
+
+    .rightform{
+        width: 100%;
+    }
+}
+
+@media (max-width: 340px) {
+    .helpbox{
+        width: 80%;
+        margin: 10%;
+        margin-top: 20px;
+        margin-left: 5%;
+        padding: .5em;
+    }
+
+    .helpbox > header, .helpbox > p {
+        margin: 0;
+        padding: 0;
+        padding-bottom: .25em;
+        display: flex;
+        justify-content: center;
+    }
+
+    .helpform{
+        display: block;
+        padding: 0;
+        margin: 0;
+    }
+
+    .leftform{
+        width: 100%;
+        padding: 0;
+    }
+
+    .rightform{
+        width: 100%;
+        padding: 0;
+    }
+}
+
+
+/* TRANSFER PAGE */
+
+form.Transfers > div > input {
+    width: 80%;
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+form.Transfers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    margin-left: 2.5%;
+}
+
+.Transfers .leftform,
+.Transfers .rightform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 50%;
     padding: 10px;
     min-height: 200px;
+}
+
+
+/* HISTORY PAGE */
+
+.transaction-container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+.transaction-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1f1f1f;
+    color: #fff;
+}
+
+#historyTable th, #historyTable td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+#historyTable th {
+    background-color: #444;
+    color: #fff;
+}
+
+#historyTable tbody tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+#historyTable tbody tr:hover {
+    background-color: #3d3d3d;
 }

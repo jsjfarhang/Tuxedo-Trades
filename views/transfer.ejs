@@ -12,32 +12,31 @@
   <div class="helpbox">
     <header>Account Transfers</header>
     <p>Specify your transaction and select "Submit" to process.</p><br>
-    <form class="Transfers">
+    <p>Current Account Balance: <%= user.cashAccount.balance %></p><br>
+    <form id="transfer">
+      <input type="hidden" id="username" value="<%= user.username %>">
       <div class="leftform">
         <p>Transfer from:</p>
-        <input list="TransferList" placeholder="Choose Account"><br>
-        <datalist id="TransferList">
-          <option value="CHASE BANK SAVINGS">
-          <option value="CHASE BANK CHECKING">
-          <option value="Account Balance">
-        </datalist>
+        <select id="transferFrom" required>
+          <option value="" disabled selected>Choose Account</option>
+          <option value="cashAccount">Account Balance: <%= user.cashAccount.balance %></option>
+          <option value="bankAccount"><%= user.bankAccount.bankName %>: <%= user.bankAccount.balance %></option>
+        </select><br>
         <p>Transfer to:</p>
-        <input list="TransferList" placeholder="Choose Account"><br>
-        <datalist id="TransferList">
-          <option value="CHASE BANK SAVINGS">
-          <option value="CHASE BANK CHECKING">
-          <option value="Account Balance">
-        </datalist>
+        <select id="transferTo" required>
+          <option value="" disabled selected>Choose Account</option>
+          <option value="cashAccount">Account Balance: <%= user.cashAccount.balance %></option>
+          <option value="bankAccount"><%= user.bankAccount.bankName %>: <%= user.bankAccount.balance %></option>
+        </select>
       </div>
       <div class="rightform">
         <p>Amount:</p>
-        <input type="text" placeholder="Amount"><br>
+        <input id="amount" type="text" placeholder="Amount"><br>
+        <p id="amountError" class="error-text"></p><br>
         <input type="submit">
       </div>
-    </form>
+    </form>    
   </div>
   <%- include('../blocks/footer') %>
-  <script src="/js/nav.js"></script>
-  <script src="/js/auth.js"></script>
 </body>
 </html>

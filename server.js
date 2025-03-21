@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 const { connectDb, User, Transaction, Stock } = require('./database');
 const app = express();
 const PORT = process.env.PORT;
@@ -13,12 +14,17 @@ app.use(cookieParser());
 
 connectDb();
 
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+/* middleware */
+
 const verifyToken = promisify(jwt.verify);
-const authenticateToken = async (req, res, next) => {
+const authenticateToken = async (req, next) => {
   const token = req.cookies.token;
-  if (!token) {
-    return next();
-  }
+  if (!token) return next();
   const x = await verifyToken(token, process.env.JWT_SECRET);
   const user = await User.findById(x.id);
   if (!user) return next();
@@ -27,15 +33,11 @@ const authenticateToken = async (req, res, next) => {
   next();
 };
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 
 /* routes */
 
 app.post('/login', async (req, res) => { // login user
-  try { // add code to verify no duplicate users
+  try {
     const { username, password } = req.body;
     if (!username || !password) {
       return res.status(400).json({ error: 'Username and password are required' });
@@ -59,9 +61,28 @@ app.post('/login', async (req, res) => { // login user
 });
 
 app.post('/users', async (req, res) => { // create new user
-  try { // add code to make sure there are no duplicate users
-    const { username, password, email, admin } = req.body;
-    const newUser = new User({ username, password, email, admin });
+  try {
+    const { fname, lname, username, password, email, bankName, balance } = req.body;
+    const existingUser = await User.findOne({ 
+      $or: [{ username }, { email }] 
+    });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username or email already exists' });
+    }
+    const newUser = new User({
+      fname: fname,
+      lname: lname,
+      username: username,
+      password: password,
+      email: email,
+      bankAccount: {
+        bankName: bankName,
+        balance: balance
+      },
+      cashAccount: {
+        balance: 0
+      }
+    });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {
@@ -70,11 +91,11 @@ app.post('/users', async (req, res) => { // create new user
 });
 
 app.post('/transactions', async (req, res) => { // create new transaction
-  try { // add code to verify no duplicate transactions
-    const { transId, buySell, ticker, quantity, userId, price } = req.body;
+  try {
+    const { timestamp, type, ticker, quantity, userId, price } = req.body;
     const newTransaction = new Transaction({
-      transId,
-      buySell,
+      timestamp,
+      type,
       ticker,
       quantity,
       userId,
@@ -88,9 +109,9 @@ app.post('/transactions', async (req, res) => { // create new transaction
 });
 
 app.post('/stocks', async (req, res) => { // create new stock
-  try { // add code to verify no duplicate stocks
+  try {
     const { ticker, currentValue, volume, marketCap } = req.body;
-    const newStock = new Stock({ ticker, currentValue, volume, marketCap });
+    const newStock = new Stock({ ticker, company, currentValue, volume, marketCap });
     await newStock.save();
     res.status(201).json(newStock);
   } catch (error) {
@@ -98,11 +119,35 @@ app.post('/stocks', async (req, res) => { // create new stock
   }
 });
 
+app.post('/transfer', async (req, res) => { // transfer cash amount
+  try {
+    const { username, amount, fromAccount, toAccount } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ error: 'User not found or bank account does not exist' });
+    if (fromAccount === 'bankAccount' && user.bankAccount.balance < amount) {
+      return res.status(400).json({ error: 'Insufficient funds in bank account' });
+    }
+    if (fromAccount === 'cashAccount' && user.cashAccount.balance < amount) {
+      return res.status(400).json({ error: 'Insufficient funds in cash account' });
+    }
+    if (fromAccount === 'bankAccount' && toAccount === 'cashAccount') {
+      user.bankAccount.balance -= amount;
+      user.cashAccount.balance += amount;
+    }
+    if (fromAccount === 'cashAccount' && toAccount === 'bankAccount') {
+      user.cashAccount.balance -= amount;
+      user.bankAccount.balance += amount;
+    }
+    await user.save();
+    res.status(200).json({ message: 'Transfer successful', user });
+  } catch (error) {
+    res.status(400).json({ error: 'Error processing transfer', message: error.message });
+  }
+});
+
 app.get('/', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (user) {
-    res.redirect(`/${user.username}/dashboard`);
-  }
+  if (user) res.redirect(`/${user.username}/dashboard`);
   res.render(__dirname + '/views/login.ejs', { user });
 });
 
@@ -127,26 +172,23 @@ app.get('/:username/dashboard', authenticateToken, async (req, res) => {
   res.render(__dirname + '/views/dashboard.ejs', { user });
 });
 
+app.get('/:username/history', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  const transactions = await Transaction.find({ userId: user._id });
+  res.render(__dirname + '/views/history.ejs', { user, transactions });
+});
+
 app.get('/:username/trading', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (!user) return res.redirect(`/${user.username}/dashboard`);
+  if (!user) return res.redirect(`/`);
   res.render(__dirname + '/views/trading.ejs', { user });
 });
 
 app.get('/:username/transfer', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (!user) return res.redirect(`/${user.username}/dashboard`);
+  if (!user) return res.redirect(`/`);
   res.render(__dirname + '/views/transfer.ejs', { user });
-});
-
-app.get('/:username/transactions', authenticateToken, async (req, res) => { // user transaction history
-  const user = req.user;
-  const transactions = await Transaction.find({ userId: user._id });
-  res.json(transactions);
-  if (!user) {
-    return res.redirect(`/${user.username}/dashboard`);
-  }
-  res.render(__dirname + '/views/transactions.ejs', { user });
 });
 
 app.get('/logout', (req, res) => {
@@ -157,3 +199,22 @@ app.get('/logout', (req, res) => {
   });
   res.redirect('/');
 });
+
+/*
+app.get('/fetchTrans', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  try {
+    const transactions = await Transaction.find({userId: user}).sort({ timestamp: -1});
+    res.json(transactions);
+  }catch (error) {
+    res.status(400).json({ error: 'Error creating history table', message: error.message });
+  }
+})*/
+
+/*
+app.get('/:username/createtesttrans', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  res.render(__dirname + '/views/createtesttrans.ejs', { user });
+});*/

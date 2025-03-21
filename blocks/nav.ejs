@@ -10,6 +10,8 @@
         <% if (user) { %>
             <li><img src=""><a href="/<%= user.username %>/dashboard">Dashboard</a></li>
             <li><img src=""><a href="/<%= user.username %>/transfer">Transfer</a></li>
+            <li><img src=""><a href="/<%= user.username %>/history">Transaction History</a></li>
+            <!-- <li><img src=""><a href="/<%= user.username %>/createtesttrans">Test Transactions</a></li> Do not send to live -->
             <li><img src=""><a href="/help">Help</a></li>
             <li><img src=""><a href="/about">About Us</a></li>
             <li><img src=""><button onclick="logoutUser()">Logout</button></li>

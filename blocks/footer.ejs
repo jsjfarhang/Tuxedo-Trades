@@ -1,3 +1,21 @@
-<div class="footer">
+<div id="footer" class="footer">
     © 2025, Tuxedo Trades. All rights reserved.
 </div>
+<script src="/js/nav.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+    function adjustFooter() {
+        const footer = document.getElementById('footer');
+        const bodyHeight = document.body.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        if (bodyHeight < viewportHeight) {
+            footer.style.position = 'absolute';
+            footer.style.bottom = '0';
+            footer.style.width = '100%';
+        } else {
+            footer.style.position = 'static';
+        }
+    }
+    window.onload = adjustFooter;
+    window.onresize = adjustFooter;
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html> <!-- Do not send to live -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuxedo Trades</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body> <!-- Do not send to live -->
+  <%- include('../blocks/nav') %>
+  <div class="helpbox">
+    <header>Test Transactions</header>
+    <p>Fill out information!</p>
+    <form class="signup" id="testTrans">
+      <p>TimeStamp:</p>
+      <input type="datetime" placeholder="2025-03-06T16:25:35.938Z" id="timestamp" name="timestamp" required>
+      <p>Type:</p>
+      <input type="text" placeholder="BUY/SELL" id="type" name="type" required>
+      <p>Ticker:</p>
+      <input type="text" placeholder="Ticker(AAPL)" id="ticker" name="ticker" required>
+      <p>Quantity:</p>
+      <input type="number" placeholder="10000" id="quantity" name="quantity" required>
+      <p>Price:</p>
+      <input type="number" placeholder="$1000" id="price" name="price" required>
+      <br><br>
+      <input type="submit" class="signupsubmit">
+    </form>
+  </div>
+  <%- include('../blocks/footer') %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById("testTrans").addEventListener("submit", function(event){
+        event.preventDefault();
+
+        const tranForm = new FormData(this)
+        addTestTrans(tranForm, user)
+      })
+    })
+  </script>
+</body>
+</html>
+<!-- Do not send to live -->

@@ -9,9 +9,39 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  
+  <div class="helpbox">
+    <header>Create An Account</header>
+    <p>Fill out your information below!</p>
+    <form class="signup" id="signupForm">
+      <p>First Name:</p>
+      <input type="text" placeholder="First Name" id="fname" name="fname" required>
+      <p>Last Name:</p>
+      <input type="text" placeholder="Last Name" id="lname" name="lname" required>
+      <p>Username:</p>
+      <input type="text" placeholder="TuxedoTed" id="username" name="username" required>
+      <p>Password:</p>
+      <input type="text" placeholder="**********" id="password" name="password" required>
+      <p>Email:</p>
+      <input type="text" placeholder="TuxedoTed@example.com" id="email" name="email" required>
+      <p>Name of Bank:</p>
+      <input type="text" placeholder="Emperor Trust" id="bankName" name="bankName" required>
+      <p>Bank Balance:</p>
+      <input type="text" placeholder="$0,000.00" id="bankBalance" name="bankBalance" required>
+      <br><br>
+      <p id="addUserError" class="error-text"></p><br>
+      <input type="submit" class="signupsubmit">
+    </form>
+  </div>
   <%- include('../blocks/footer') %>
-  <script src="js/nav.js"></script>
-  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById("signupForm").addEventListener("submit", function(event){
+        event.preventDefault();
+
+        const signupData = new FormData(this)
+        addUser(signupData)
+      })
+    })
+  </script>
 </body>
 </html>
