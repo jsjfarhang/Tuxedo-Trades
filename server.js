@@ -181,13 +181,13 @@ app.get('/:username/history', authenticateToken, async (req, res) => {
 
 app.get('/:username/trading', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (!user) return res.redirect(`/${user.username}/dashboard`);
+  if (!user) return res.redirect(`/`);
   res.render(__dirname + '/views/trading.ejs', { user });
 });
 
 app.get('/:username/transfer', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (!user) return res.redirect(`/${user.username}/dashboard`);
+  if (!user) return res.redirect(`/`);
   res.render(__dirname + '/views/transfer.ejs', { user });
 });
 
