@@ -10,7 +10,7 @@
 <body>
   <%- include('../blocks/nav') %>
   <div class="transaction-container">
-    <header class="transaction-header">Transaction History</header>
+    <header class="transaction-header"><%= user.fname %> <%= user.lname %>'s Transaction History</header>
     <table id="historyTable">
       <thead>
         <tr>
