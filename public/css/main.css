@@ -144,8 +144,7 @@
 /* there may be css classes that can be reused from the login page */
 .helpbox {
     padding: 1em;
-    margin: 15%;
-    margin-top: 75px;
+    margin: 5%;
     width: 60%;
     background-color: #CEDDE2;
     border-radius: 1em;
