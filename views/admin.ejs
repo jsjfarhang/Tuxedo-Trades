@@ -9,13 +9,42 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  <div>
-    <header>Administrator</header>
-    <p>Unauthorized Access Prohibited!</p>
+  <div class="admin-container">
+    <h2>Administrator Settings</h2>
+    <p style="font-style: italic;">Unauthorized Access Prohibited</p><br>
+	<p class="admin-lg">Create new stock</p>
     <div>
-    
-    </div>
+		<form class="createStock" id="createStockForm">
+			<p>Stock Ticker:</p>
+			<input type="text" placeholder="Ticker" id="ticker" name="ticker" required>
+			<p>Company:</p>
+			<input type="text" placeholder="Company" id="company" name="company" required>
+			<p>Volume:</p>
+			<input type="number" placeholder="Volume" id="volume" name="volume" required>
+			<p id="createStockError" class="error-text"></p>
+			<input type="submit" class="createStockSubmit">
+		</form>
+    </div><br>
+	<p class="admin-lg">Change Market Hours</p>
+	<div>
+		
+    </div><br>
+	<p class="admin-lg">Change Market Schedule</p>
+	<div>
+		
+    </div><br>
   </div>
   <%- include('../blocks/footer') %>
+  <script src="/js/admin.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("createStockForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const stockData = new FormData(this);
+        createStock(stockData);
+      })
+    })
+  </script>
 </body>
 </html>

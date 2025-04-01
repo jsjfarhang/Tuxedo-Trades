@@ -110,7 +110,13 @@ app.post('/transactions', async (req, res) => { // create new transaction
 
 app.post('/stocks', async (req, res) => { // create new stock
   try {
-    const { ticker, currentValue, volume, marketCap } = req.body;
+    const { ticker, company, currentValue, volume, marketCap } = req.body;
+    const existingStock = await Stock.findOne({ 
+      $or: [{ ticker }, { company }] 
+    });
+    if (existingStock) {
+      return res.status(400).json({ error: 'Ticker or company already exists' });
+    }
     const newStock = new Stock({ ticker, company, currentValue, volume, marketCap });
     await newStock.save();
     res.status(201).json(newStock);
