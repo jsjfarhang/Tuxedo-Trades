@@ -62,32 +62,6 @@ async function addUser(signupData) {
     }
 }
 
-/*
-async function addTestTrans(tranForm, user) { //<!-- Do not send to live -->
-    const timestamp = tranForm.get("timestamp");
-    const buySell = tranForm.get("type");
-    const ticker = tranForm.get("ticker");
-    const quantity = tranForm.get("quantity");
-    const userId = user;
-    const price = tranForm.get("price");
-
-    
-    const response = await fetch('/transactions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            timestamp,
-            buySell,
-            ticker,
-            quantity,
-            userId,
-            price 
-        }),
-    })
-}*/
-
 if (window.location.pathname.includes('/transfer')) {
     const transferForm = document.getElementById('transfer');
     const amountError = document.getElementById('amountError');
