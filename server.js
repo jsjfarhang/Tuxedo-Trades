@@ -191,6 +191,12 @@ app.get('/:username/transfer', authenticateToken, async (req, res) => {
   res.render(__dirname + '/views/transfer.ejs', { user });
 });
 
+app.get('/:username/admin', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user.admin) return res.redirect(`/`);
+  res.render(__dirname + '/views/admin.ejs', { user });
+});
+
 app.get('/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
