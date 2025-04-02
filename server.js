@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const { connectDb, User, Transaction, Stock } = require('./database');
+const { connectDb, User, Transaction, Stock, Markets } = require('./database');
 const app = express();
 const PORT = process.env.PORT;
 const cookieParser = require('cookie-parser');
@@ -18,11 +18,26 @@ app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
+let cachedMarket = null;
+async function loadMarket() {
+  cachedMarket = await Markets.findOne();
+  console.log("cachedMarket", cachedMarket)
+  if (!cachedMarket) {
+    cachedMarket = await Markets.create({
+          openTime: "09:30",
+          closeTime: "16:00",
+          openDays: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          holidays: ["2025/01/01", "2025/12/25", "2025/07/04"]
+      });
+  }
+}
+loadMarket();
+
 
 /* middleware */
 
 const verifyToken = promisify(jwt.verify);
-const authenticateToken = async (req, res, next) => {
+const authenticateToken = async (req, res, next) => { // verify user
   const token = req.cookies.token;
   if (!token) return next();
   const x = await verifyToken(token, process.env.JWT_SECRET);
@@ -35,6 +50,72 @@ const authenticateToken = async (req, res, next) => {
 
 
 /* routes */
+
+app.get('/', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (user) res.redirect(`/${user.username}/dashboard`);
+  res.render(__dirname + '/views/login.ejs', { user });
+});
+
+app.get('/help', authenticateToken, async (req, res) => {
+  const user = req.user;
+  res.render(__dirname + '/views/help.ejs', { user });
+});
+
+app.get('/signup', authenticateToken, async (req, res) => {
+  const user = req.user;
+  res.render(__dirname + '/views/signup.ejs', { user });
+});
+
+app.get('/about', authenticateToken, async (req, res) => {
+  const user = req.user;
+  res.render(__dirname + '/views/about.ejs', { user });
+});
+
+app.get('/:username/dashboard', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  res.render(__dirname + '/views/dashboard.ejs', { user });
+});
+
+app.get('/:username/history', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  const transactions = await Transaction.find({ userId: user._id });
+  res.render(__dirname + '/views/history.ejs', { user, transactions });
+});
+
+app.get('/:username/trading', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect(`/`);
+  res.render(__dirname + '/views/trading.ejs', { user });
+});
+
+app.get('/:username/transfer', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect(`/`);
+  res.render(__dirname + '/views/transfer.ejs', { user });
+});
+
+app.get('/:username/admin', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user.admin) return res.redirect(`/`);
+  res.render(__dirname + '/views/admin.ejs', { user });
+});
+
+app.get('/market-settings', async (req, res) => {
+  if (!cachedMarket) await loadMarket();
+  res.json(cachedMarket);
+});
+
+app.get('/logout', (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'live',
+    sameSite: 'Strict',
+  });
+  res.redirect('/');
+});
 
 app.post('/login', async (req, res) => { // login user
   try {
@@ -115,7 +196,7 @@ app.post('/stocks', async (req, res) => { // create new stock
       $or: [{ ticker }, { company }] 
     });
     if (existingStock) {
-      return res.status(400).json({ error: 'Ticker or company already exists' });
+      return res.status(400).json({ error: 'Ticker or company already exists.' });
     }
     const newStock = new Stock({ ticker, company, currentValue, volume, marketCap });
     await newStock.save();
@@ -123,6 +204,24 @@ app.post('/stocks', async (req, res) => { // create new stock
   } catch (error) {
     res.status(400).json({ error: 'Error creating stock', message: error.message });
   }
+});
+
+app.post('/update-market-hours', async (req, res) => {
+  const { openTime, closeTime } = req.body;
+  await Markets.findOneAndUpdate({}, { openTime, closeTime });
+  cachedMarket.openTime = openTime;
+  cachedMarket.closeTime = closeTime;
+  res.json({ success: true, message: "Market hours updated" });
+  console.log("cachedMarket", cachedMarket)
+});
+
+app.post('/update-market-schedule', async (req, res) => {
+  const { openDays, holidays } = req.body;
+  await Markets.findOneAndUpdate({}, { openDays, holidays });
+  cachedMarket.openDays = openDays;
+  cachedMarket.holidays = holidays;
+  res.json({ success: true, message: "Market schedule updated" });
+  console.log("cachedMarket", cachedMarket)
 });
 
 app.post('/transfer', async (req, res) => { // transfer cash amount
@@ -149,65 +248,4 @@ app.post('/transfer', async (req, res) => { // transfer cash amount
   } catch (error) {
     res.status(400).json({ error: 'Error processing transfer', message: error.message });
   }
-});
-
-app.get('/', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (user) res.redirect(`/${user.username}/dashboard`);
-  res.render(__dirname + '/views/login.ejs', { user });
-});
-
-app.get('/help', authenticateToken, async (req, res) => {
-  const user = req.user;
-  res.render(__dirname + '/views/help.ejs', { user });
-});
-
-app.get('/signup', authenticateToken, async (req, res) => {
-  const user = req.user;
-  res.render(__dirname + '/views/signup.ejs', { user });
-});
-
-app.get('/about', authenticateToken, async (req, res) => {
-  const user = req.user;
-  res.render(__dirname + '/views/about.ejs', { user });
-});
-
-app.get('/:username/dashboard', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect('/');
-  res.render(__dirname + '/views/dashboard.ejs', { user });
-});
-
-app.get('/:username/history', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect('/');
-  const transactions = await Transaction.find({ userId: user._id });
-  res.render(__dirname + '/views/history.ejs', { user, transactions });
-});
-
-app.get('/:username/trading', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect(`/`);
-  res.render(__dirname + '/views/trading.ejs', { user });
-});
-
-app.get('/:username/transfer', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user) return res.redirect(`/`);
-  res.render(__dirname + '/views/transfer.ejs', { user });
-});
-
-app.get('/:username/admin', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (!user.admin) return res.redirect(`/`);
-  res.render(__dirname + '/views/admin.ejs', { user });
-});
-
-app.get('/logout', (req, res) => {
-  res.clearCookie('token', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'live',
-    sameSite: 'Strict',
-  });
-  res.redirect('/');
 });

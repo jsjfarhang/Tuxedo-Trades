@@ -7,6 +7,6 @@ const stockSchema = new mongoose.Schema({
   volume: { type: Number, required: true },
   marketCap: { type: Number, required: true }
 }, { versionKey: false });
-const Stock = mongoose.model('Stock', stockSchema);
 
+const Stock = mongoose.model('Stock', stockSchema);
 module.exports = Stock;

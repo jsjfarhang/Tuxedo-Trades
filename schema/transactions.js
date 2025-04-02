@@ -8,6 +8,6 @@ const transactionSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   price: { type: Number, required: true }
 }, { versionKey: false });
-const Transaction = mongoose.model('Transaction', transactionSchema);
 
+const Transaction = mongoose.model('Transaction', transactionSchema);
 module.exports = Transaction;

@@ -11,10 +11,10 @@
   <%- include('../blocks/nav') %>
   <div class="admin-container">
     <h2>Administrator Settings</h2>
-    <p style="font-style: italic;">Unauthorized Access Prohibited</p><br>
+    <p class="admin-italic">Unauthorized Access Prohibited</p><br>
 	<p class="admin-lg">Create new stock</p>
     <div>
-		<form class="createStock" id="createStockForm">
+		<form class="admin-form" id="createStockForm">
 			<p>Stock Ticker:</p>
 			<input type="text" placeholder="Ticker" id="ticker" name="ticker" required>
 			<p>Company:</p>
@@ -22,16 +22,30 @@
 			<p>Volume:</p>
 			<input type="number" placeholder="Volume" id="volume" name="volume" required>
 			<p id="createStockError" class="error-text"></p>
-			<input type="submit" class="createStockSubmit">
+			<input class="createStockSubmit" type="submit">
 		</form>
     </div><br>
 	<p class="admin-lg">Change Market Hours</p>
+	<p class="admin-italic">Determines when users can buy/sell stocks.</p><br>
 	<div>
-		
+		<form class="admin-form" id="hoursForm">
+            <label for="openTime">Open Time (HH:MM):</label>
+            <input type="text" id="openTime" required><br><br>
+            <label for="closeTime">Close Time (HH:MM):</label>
+            <input type="text" id="closeTime" required><br><br>
+            <button class="market-update" type="submit">Update Market Hours</button>
+        </form>
     </div><br>
 	<p class="admin-lg">Change Market Schedule</p>
+	<p class="admin-italic">Determines when stock prices will be changing.</p><br>
 	<div>
-		
+		<form class="admin-form" id="scheduleForm">
+            <label for="holidays">Holidays (YYYY/MM/DD, etc.):</label><br>
+            <input type="text" id="holidays" required><br><br>
+            <label for="openDays">Open Days (Monday, Tuesday, etc.):</label><br>
+            <input type="text" id="openDays" required><br><br>
+            <button class="market-update" type="submit">Update Market Schedule</button>
+        </form>
     </div><br>
   </div>
   <%- include('../blocks/footer') %>
@@ -40,7 +54,6 @@
     document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("createStockForm").addEventListener("submit", function(event) {
         event.preventDefault();
-
         const stockData = new FormData(this);
         createStock(stockData);
       })
