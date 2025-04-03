@@ -10,9 +10,11 @@ async function createStock(stockData) {
     const createStockError = document.getElementById("createStockError");
     const ticker = stockData.get("ticker");
     const company = stockData.get("company");
-    const currentValue = Number(priceGenerator());
+    const timestamp = new Date();
+    const price = Number(priceGenerator());
     const volume = Number(stockData.get("volume"));
-    const marketCap = Number(currentValue * volume);
+    const marketCap = Number(price * volume);
+    const history = [{ timestamp, price }];
     if (!ticker || !company || !volume || isNaN(volume) || volume <= 0) {
         document.getElementById('createStockError').textContent = "Please provide valid stock information.";
         return;
@@ -21,7 +23,7 @@ async function createStock(stockData) {
         const response = await fetch('/stocks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ticker, company, currentValue, volume, marketCap }),
+            body: JSON.stringify({ ticker, company, volume, marketCap, history }),
         });
         const result = await response.json();
         if (!response.ok) {

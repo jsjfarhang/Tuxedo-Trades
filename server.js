@@ -6,6 +6,7 @@ const app = express();
 const PORT = process.env.PORT;
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const cron = require('node-cron');
 const { promisify } = require('util');
 
 app.use(express.json());
@@ -21,7 +22,6 @@ app.listen(PORT, () => {
 let cachedMarket = null;
 async function loadMarket() {
   cachedMarket = await Markets.findOne();
-  console.log("cachedMarket", cachedMarket)
   if (!cachedMarket) {
     cachedMarket = await Markets.create({
           openTime: "09:30",
@@ -47,6 +47,34 @@ const authenticateToken = async (req, res, next) => { // verify user
   req.token = token;
   next();
 };
+
+function generateNewPrice(currentPrice) {
+  const changePercent = (Math.random() * 0.05 + 0.02); // 2-5% change
+  const change = Math.random() > 0.5 ? 1 : -1; // randomly increase or decrease
+  const newPrice = currentPrice * (1 + change * changePercent);
+  return Math.round(newPrice);
+}
+
+async function updateStockPrice() {
+  const stocks = await Stock.find();
+  for (const stock of stocks) {
+    const lastPrice = stock.history[stock.history.length - 1]?.price;
+    if (lastPrice) {
+      const newPrice = generateNewPrice(lastPrice);
+      stock.history.push({ timestamp: new Date(), price: newPrice });
+      if (stock.history.length > 20) {
+        stock.history.shift();
+      }
+      await stock.save();
+      console.log(`Updated ${stock.ticker} price: ${newPrice}`);
+    }
+  }
+}
+
+cron.schedule('0 * * * *', async () => await updateStockPrice()); // updates hourly
+
+async function testPriceUpdate() { await updateStockPrice(); }
+//testPriceUpdate();
 
 
 /* routes */
@@ -192,14 +220,14 @@ app.post('/transactions', async (req, res) => { // create new transaction
 
 app.post('/stocks', async (req, res) => { // create new stock
   try {
-    const { ticker, company, currentValue, volume, marketCap } = req.body;
+    const { ticker, company, volume, marketCap, history } = req.body;
     const existingStock = await Stock.findOne({ 
       $or: [{ ticker }, { company }] 
     });
     if (existingStock) {
       return res.status(400).json({ error: 'Ticker or company already exists.' });
     }
-    const newStock = new Stock({ ticker, company, currentValue, volume, marketCap });
+    const newStock = new Stock({ ticker, company, volume, marketCap, history });
     await newStock.save();
     res.status(201).json(newStock);
   } catch (error) {
@@ -213,7 +241,6 @@ app.post('/update-market-hours', async (req, res) => {
   cachedMarket.openTime = openTime;
   cachedMarket.closeTime = closeTime;
   res.json({ success: true, message: "Market hours updated" });
-  console.log("cachedMarket", cachedMarket)
 });
 
 app.post('/update-market-schedule', async (req, res) => {
@@ -222,7 +249,6 @@ app.post('/update-market-schedule', async (req, res) => {
   cachedMarket.openDays = openDays;
   cachedMarket.holidays = holidays;
   res.json({ success: true, message: "Market schedule updated" });
-  console.log("cachedMarket", cachedMarket)
 });
 
 app.post('/transfer', async (req, res) => { // transfer cash amount

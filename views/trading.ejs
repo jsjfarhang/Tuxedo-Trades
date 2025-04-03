@@ -27,9 +27,9 @@
           <tr>
             <td><%= stock.ticker %></td>
             <td><%= stock.company %></td>
-            <td><%= stock.currentValue %></td>
+            <td><%= stock.price %></td>
             <td><%= stock.volume %></td>
-            <td><%= stock.volume * stock.currentValue %></td>
+            <td><%= stock.volume * stock.price %></td>
             <td class="buysell"><button>BUY</button> <button>SELL</button></td>
           </tr>
         <% }); %>
