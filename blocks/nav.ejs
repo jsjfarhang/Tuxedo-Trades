@@ -9,6 +9,7 @@
     <ul id="navOptions">
         <% if (user) { %>
             <li><img src=""><a href="/<%= user.username %>/dashboard">Dashboard</a></li>
+            <li><img src=""><a href="/<%= user.username %>/trading">Trading</a></li>
             <li><img src=""><a href="/<%= user.username %>/transfer">Transfer</a></li>
             <li><img src=""><a href="/<%= user.username %>/history">Transaction History</a></li>
             <% if (user.admin) { %><li><img src=""><a href="/<%= user.username %>/admin">Admin Settings</a></li><% } %>

@@ -19,6 +19,7 @@
           <th>Current Price</th>
           <th>Volume</th>
           <th>Market Cap</th>
+          <th>BUY / SELL</th>
         </tr>
       </thead>
       <tbody>
@@ -29,6 +30,7 @@
             <td><%= stock.currentValue %></td>
             <td><%= stock.volume %></td>
             <td><%= stock.volume * stock.currentValue %></td>
+            <td class="buysell"><button>BUY</button> <button>SELL</button></td>
           </tr>
         <% }); %>
       </tbody>
