@@ -28,7 +28,7 @@
             <td><%= stock.company %></td>
             <td><%= stock.currentValue %></td>
             <td><%= stock.volume %></td>
-            <td><%= stock.marketCap %></td>
+            <td><%= stock.volume * stock.currentValue %></td>
           </tr>
         <% }); %>
       </tbody>
