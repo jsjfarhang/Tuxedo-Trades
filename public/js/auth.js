@@ -1,7 +1,7 @@
 let bannedChars = ["/", "<", ">", "`", "\\", "src", "&lt", "&gt", "\u003c", "\u003e"];
 /* ADJUST BANNED CHARS FUNCTIONALITY */
 
-async function authenticateUser() {
+async function loginUser() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     if (!username || !password) return;

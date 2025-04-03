@@ -6,6 +6,7 @@ const Markets = require('./schema/markets');
 
 let db = process.env.MONGO_URI + 'tuxedo_trades';
 
+// Connect to db
 const connectDb = async () => {
   try {
     await mongoose.connect(db);

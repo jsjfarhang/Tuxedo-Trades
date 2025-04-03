@@ -1,12 +1,13 @@
 /* ADJUST BANNED CHARS FUNCTIONALITY */
 
+// random price generator (initializes price)
 function priceGenerator() {
     let min = 1, max = 5000;
     let randomPrice = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomPrice;
 }
 
-async function createStock(stockData) {
+async function addStock(stockData) {
     const createStockError = document.getElementById("createStockError");
     const ticker = stockData.get("ticker");
     const company = stockData.get("company");
@@ -38,6 +39,7 @@ async function createStock(stockData) {
     }
 }
 
+// grab market settings on page load
 document.addEventListener("DOMContentLoaded", async function () {
     try {
         const response = await fetch('/market-settings');
