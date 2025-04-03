@@ -9,7 +9,36 @@
 </head>
 <body>
   <%- include('../blocks/nav') %>
-  Welcome to <%= user.fname %> <%= user.lname %>'s Dashboard
+<header class="dashhead">Welcome to <%= user.fname %> <%= user.lname %>'s Dashboard</header>
+<div class="dashbox">
+  <div class="dashporf">
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Shares Owned</th>
+          <th>Total Value</th>
+          <th>Price</th>
+          <th>Market Volume</th>
+          <th>Market Cap</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="sidenews">
+    <h2>News</h2>
+    <h3>BREAKING NEWS</h3>
+    <p>Stocks see a dramatic swing after new stimulus from foreign markets. All major firms are projecting rapid growth in the industrial sector with some suggesting a broader pattern of expansion. </p>
+    <h3>Next Weeks Polls</h3>
+    <p>Does the current role of AI fit the markets’ goals? AI is being widely distributed but most believe it hasn't reached its full potential. Research suggests the viral popularity of AI is leading to ‘dumb’ AI being baked into products. What do YOU think?</p>
+    <h3>Major Tumble in Tech</h3>
+    <p>All major firms predicted these tech brands would see major growth but all of them fell short of their projections. What happened and how do we know it won’t happen again? Let's walk through it.</p>
+  </div>
+</div>
   <%- include('../blocks/footer') %>
 </body>
 </html>
