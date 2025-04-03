@@ -9,7 +9,31 @@
 </head>
 <body> <!-- page requires extentions to change based on displayed stock -->
   <%- include('../blocks/nav') %>
-  
+  <div class="tradetable">
+    <h1>Available Stocks</h1>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Current Price</th>
+          <th>Volume</th>
+          <th>Market Cap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% stocks.forEach(stock => { %>
+          <tr>
+            <td><%= stock.ticker %></td>
+            <td><%= stock.company %></td>
+            <td><%= stock.currentValue %></td>
+            <td><%= stock.volume %></td>
+            <td><%= stock.marketCap %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
   <%- include('../blocks/footer') %>
 </body>
 </html>

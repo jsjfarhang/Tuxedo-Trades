@@ -88,7 +88,8 @@ app.get('/:username/history', authenticateToken, async (req, res) => {
 app.get('/:username/trading', authenticateToken, async (req, res) => {
   const user = req.user;
   if (!user) return res.redirect(`/`);
-  res.render(__dirname + '/views/trading.ejs', { user });
+  const stocks = await Stock.find();
+  res.render(__dirname + '/views/trading.ejs', { user, stocks });
 });
 
 app.get('/:username/transfer', authenticateToken, async (req, res) => {

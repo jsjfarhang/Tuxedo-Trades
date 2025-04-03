@@ -475,3 +475,16 @@ form.Transfers {
     font-weight: 500;
 }
 
+/* TRADING PAGE */
+
+.tradetable {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.tradetable > h1 {
+    margin: 1em;
+}
+
+
+
