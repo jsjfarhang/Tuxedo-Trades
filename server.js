@@ -81,7 +81,7 @@ async function testPriceUpdate() { await updateStockPrice(); }
 
 app.get('/', authenticateToken, async (req, res) => {
   const user = req.user;
-  if (user) res.redirect(`/${user.username}/dashboard`);
+  if (user) return res.redirect(`/${user.username}/dashboard`);
   res.render(__dirname + '/views/login.ejs', { user });
 });
 
