@@ -1,21 +1,10 @@
 /* ADJUST BANNED CHARS FUNCTIONALITY */
 
-// random price generator (initializes price)
-function priceGenerator() {
-    let min = 1, max = 5000;
-    let randomPrice = Math.floor(Math.random() * (max - min + 1)) + min;
-    return randomPrice;
-}
-
 async function addStock(stockData) {
     const createStockError = document.getElementById("createStockError");
     const ticker = stockData.get("ticker");
     const company = stockData.get("company");
-    const timestamp = new Date();
-    const price = Number(priceGenerator());
     const volume = Number(stockData.get("volume"));
-    const marketCap = Number(price * volume);
-    const history = [{ timestamp, price }];
     if (!ticker || !company || !volume || isNaN(volume) || volume <= 0) {
         document.getElementById('createStockError').textContent = "Please provide valid stock information.";
         return;
@@ -24,7 +13,7 @@ async function addStock(stockData) {
         const response = await fetch('/stocks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ticker, company, volume, marketCap, history }),
+            body: JSON.stringify({ ticker, company, volume }),
         });
         const result = await response.json();
         if (!response.ok) {

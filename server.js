@@ -14,9 +14,8 @@ const PORT = process.env.PORT;
 
 // Middleware imports
 const cookieParser = require('cookie-parser');
-const { authenticateToken } = require('./server/middleware');
 const updateStockPrice = require('./server/updater');
-const { router: marketRoutes, loadMarket } = require('./server/routes/market');
+const { router: marketRoutes, loadMarket } = require('./server/routes/marketRoutes');
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -36,19 +35,13 @@ loadMarket();
 //testPriceUpdate();
 
 // Routes
-app.get('/', authenticateToken, async (req, res) => {
-  const user = req.user;
-  if (user) res.redirect(`/${user.username}/dashboard`);
-  res.render(__dirname + '/views/login.ejs', { user });
-});
-
-const indexRoutes = require('./server/routes/index');
-const authHandlerRoutes = require('./server/routes/authHandler');
-const dashboardRoutes = require('./server/routes/dashboard');
-const transactionsRoutes = require('./server/routes/transactions');
-const transferRoutes = require('./server/routes/transfer');
-const adminRoutes = require('./server/routes/admin');
-const stocksRoutes = require('./server/routes/stocks');
+const indexRoutes = require('./server/routes/indexRoutes');
+const authHandlerRoutes = require('./server/routes/authRoutes');
+const dashboardRoutes = require('./server/routes/dashboardRoutes');
+const transactionsRoutes = require('./server/routes/transactionRoutes');
+const transferRoutes = require('./server/routes/transferRoutes');
+const adminRoutes = require('./server/routes/adminRoutes');
+const stocksRoutes = require('./server/routes/stockRoutes');
 
 app.use('/', indexRoutes);
 app.use('/', authHandlerRoutes);
