@@ -1,0 +1,14 @@
+.tradetable {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.tradetable > h1 {
+    margin: 1em;
+}
+
+.buysell > button {
+    width: 25%;
+    padding: .5em;
+    margin: .25em;
+}

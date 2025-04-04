@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 
 // Middleware imports
 const cookieParser = require('cookie-parser');
-const updateStockPrice = require('./server/updater');
+const { updateStockPrice } = require('./server/stockUpdater');
 const { router: marketRoutes, loadMarket } = require('./server/routes/marketRoutes');
 
 app.use(express.json());

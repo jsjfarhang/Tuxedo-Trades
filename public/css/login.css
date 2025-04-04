@@ -1,0 +1,100 @@
+.login {
+    margin-top: 5em;
+    margin-right: 30em;
+  }
+
+.loginImg {
+    display: flex;
+    justify-content: center;
+}
+
+.loginImg img {
+    width: 40em;
+}
+
+.loginInput {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.username {
+    margin-right: 2em;
+    font-size: large;
+    font-weight: 500;
+}
+
+.password {
+    margin-left: 2em;
+    font-size: large;
+    font-weight: 500;
+}
+
+.username input, .password input {
+    width: 20em;
+    height: 3em;
+    border: 2px solid black;
+}
+
+.loginButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+}
+
+.createAccountButton {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.loginButton button {
+    background-color: #73c235;
+    border: 2px solid black;
+    padding: 10px;
+    font-weight: 800;
+    font-size: large;
+    width: 12em;
+    height: 3em;
+}
+
+.loginButton button:hover, .createAccountButton a:hover {
+    transform: scale(103%);
+}
+
+.createAccountButton a {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    font-weight: 800;
+    font-size: large;
+    width: 11em;
+    height: 1.5em;
+}
+
+@media (max-width: 1200px) {
+    .login {
+        margin-right: 0;
+    }
+}
+@media (max-width: 749px) {
+    .loginInput {
+        display: grid;
+    }
+
+    .username {
+        margin-right: 0;
+    }
+
+    .password {
+        margin-left: 0;
+    }
+    
+    .loginImg img {
+        width: 90%;
+    }
+}

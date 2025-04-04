@@ -1,0 +1,47 @@
+.dashhead {
+    font-size: xx-large;
+    font-weight: bolder;
+    padding: 1em;
+}
+
+.dashbox {
+    display: flex;
+}
+
+.dashporf {
+    height: 600px;
+    width: 55%;
+    margin-left: 5%;
+    background-color: #444;
+}
+
+.sidenews {
+    justify-self: right;
+    height: 600px;
+    width: 30%;
+    margin-right: 5%;
+    margin-left: 5%;
+    background-color: #444;
+    color: #fff;
+}
+
+.sidenews > h2 {
+    justify-self: center;
+    padding: .5em;
+    margin: 1em;
+}
+
+.sidenews > h3 {
+    margin: 1em;
+    padding-left: .5em;
+}
+
+.sidenews > p {
+    padding: 1em;
+    padding-top: .25em;
+    margin: .5em;
+    margin-left: 2.5em;
+    margin-right: 1.5em;
+    color: black;
+    font-weight: 500;
+}
