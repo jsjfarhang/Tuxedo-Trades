@@ -39,8 +39,14 @@
     padding: 1em;
 }
 
+.createStockSubmit {
+    width: 15em;
+    margin: auto;
+}
+
 .market-update {
-    margin-bottom: 2em;
+    width: 15em;
+    margin: auto;
     height: 3em;
     padding: .25em;
     box-shadow: 2px 2px 5px gray;

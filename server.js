@@ -3,7 +3,6 @@ require('dotenv').config();
 
 // Core module imports
 const express = require('express');
-const mongoose = require('mongoose');
 
 // Database connection
 const { connectDb } = require('./database');

@@ -12,36 +12,50 @@
     height: 600px;
     width: 55%;
     margin-left: 5%;
+    margin-right: 5%;
     background-color: #444;
 }
 
-.sidenews {
-    justify-self: right;
-    height: 600px;
+.news {
     width: 30%;
     margin-right: 5%;
-    margin-left: 5%;
+    margin-bottom: 5%;
     background-color: #444;
     color: #fff;
 }
 
-.sidenews > h2 {
+.news > h2 {
     justify-self: center;
     padding: .5em;
     margin: 1em;
 }
 
-.sidenews > h3 {
+.news > h3 {
     margin: 1em;
     padding-left: .5em;
 }
 
-.sidenews > p {
+.news > p {
     padding: 1em;
     padding-top: .25em;
-    margin: .5em;
+    margin: 0.5em;
     margin-left: 2.5em;
     margin-right: 1.5em;
     color: black;
     font-weight: 500;
+}
+
+@media (max-width: 990px) {
+    .dashbox {
+        display: block;
+    }
+
+    .dashporf {
+        width: 90%;
+    }
+
+    .news {
+        width: 90%;
+        margin-left: 5%;
+    }
 }

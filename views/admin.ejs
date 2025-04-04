@@ -12,8 +12,8 @@
   <div class="admin-container">
     <h2>Administrator Settings</h2>
     <p class="admin-italic">Unauthorized Access Prohibited</p><br>
-	<p class="admin-lg">Create new stock</p>
-    <div>
+	<p class="admin-lg">Create new stock</p><br>
+  <div>
 		<form class="admin-form" id="createStockForm">
 			<p>Stock Ticker:</p>
 			<input type="text" placeholder="Ticker" id="ticker" name="ticker" required>
@@ -24,29 +24,29 @@
 			<p id="createStockError" class="error-text"></p>
 			<input class="createStockSubmit" type="submit">
 		</form>
-    </div><br>
+  </div>
 	<p class="admin-lg">Change Market Hours</p>
 	<p class="admin-italic">Determines when users can buy/sell stocks.</p><br>
 	<div>
 		<form class="admin-form" id="hoursForm">
-            <label for="openTime">Open Time (HH:MM):</label>
-            <input type="text" id="openTime" required><br><br>
-            <label for="closeTime">Close Time (HH:MM):</label>
-            <input type="text" id="closeTime" required><br><br>
-            <button class="market-update" type="submit">Update Market Hours</button>
-        </form>
-    </div><br>
+      <p>Open Time (HH:MM):</p>
+      <input type="text" id="openTime" required>
+      <p>Close Time (HH:MM):</p>
+      <input type="text" id="closeTime" required><br><br>
+      <button class="market-update" type="submit">Update Market Hours</button>
+    </form>
+  </div>
 	<p class="admin-lg">Change Market Schedule</p>
 	<p class="admin-italic">Determines when stock prices will be changing.</p><br>
 	<div>
-		<form class="admin-form" id="scheduleForm">
-            <label for="holidays">Holidays (YYYY/MM/DD, etc.):</label><br>
-            <input type="text" id="holidays" required><br><br>
-            <label for="openDays">Open Days (Monday, Tuesday, etc.):</label><br>
-            <input type="text" id="openDays" required><br><br>
-            <button class="market-update" type="submit">Update Market Schedule</button>
-        </form>
-    </div><br>
+    <form class="admin-form" id="scheduleForm">
+      <p>Holidays (YYYY/MM/DD, etc.):</p>
+      <input type="text" id="holidays" required>
+      <p>Open Days (Monday, Tuesday, etc.):</p>
+      <input type="text" id="openDays" required><br><br>
+      <button class="market-update" type="submit">Update Market Schedule</button>
+    </form>
+  </div>
   </div>
   <%- include('../blocks/footer') %>
   <script src="/js/admin.js"></script>
