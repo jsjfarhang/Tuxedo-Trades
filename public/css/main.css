@@ -1,7 +1,7 @@
 /* LOGIN PAGE */
 
 .login {
-    margin-top: 10em;
+    margin-top: 5em;
     margin-right: 30em;
   }
 
@@ -101,8 +101,7 @@
 
 /* CREATE ACCOUNT PAGE */
 
-/* there may be css classes that can be reused from the login page */
-.signup{
+.signup {
     display:flex;
     margin-left: 25%;
     width: 50%;
@@ -141,14 +140,14 @@
 
 /* HELP PAGE */
 
-/* there may be css classes that can be reused from the login page */
 .helpbox {
     padding: 1em;
-    margin: 15%;
-    margin-top: 75px;
+    margin: 5%;
     width: 60%;
     background-color: #CEDDE2;
     border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .helpbox > header, .helpbox > p {
@@ -361,3 +360,135 @@ form.Transfers {
 #historyTable tbody tr:hover {
     background-color: #3d3d3d;
 }
+
+
+/* ADMIN PAGE */
+
+.admin-container {
+    padding: 1em;
+    margin: 5%;
+    width: 60%;
+    background-color: #CEDDE2;
+    border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-lg {
+    font-size: large;
+    font-weight: 500;
+}
+
+.admin-italic {
+    font-style: italic;
+}
+
+.market-confirmation {
+    padding-top: 0;
+}
+
+.admin-form {
+    display:flex;
+    margin-left: 25%;
+    width: 50%;
+    padding-bottom: 20px;
+    flex-direction: column;
+}
+
+.admin-form > input {
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.admin-form > p {
+    padding: 1em;
+}
+
+.market-update {
+    margin-bottom: 2em;
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+@media (max-width: 1200px) {
+    .admin-form {
+        width: 70%;
+        margin-left: 15%;
+    }
+}
+@media (max-width: 749px) {
+    .admin-form {
+        width: 80%;
+        margin-left: 10%;
+    }
+}
+
+/* DASHBOARD PAGE */
+
+.dashhead {
+    font-size: xx-large;
+    font-weight: bolder;
+    padding: 1em;
+}
+
+.dashbox {
+    display: flex;
+}
+
+.dashporf {
+    height: 600px;
+    width: 55%;
+    margin-left: 5%;
+    background-color: #444;
+}
+
+.sidenews {
+    justify-self: right;
+    height: 600px;
+    width: 30%;
+    margin-right: 5%;
+    margin-left: 5%;
+    background-color: #444;
+    color: #fff;
+}
+
+.sidenews > h2 {
+    justify-self: center;
+    padding: .5em;
+    margin: 1em;
+}
+
+.sidenews > h3 {
+    margin: 1em;
+    padding-left: .5em;
+}
+
+.sidenews > p {
+    padding: 1em;
+    padding-top: .25em;
+    margin: .5em;
+    margin-left: 2.5em;
+    margin-right: 1.5em;
+    color: black;
+    font-weight: 500;
+}
+
+/* TRADING PAGE */
+
+.tradetable {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.tradetable > h1 {
+    margin: 1em;
+}
+
+.buysell > button {
+    width: 25%;
+    padding: .5em;
+    margin: .25em;
+}
+

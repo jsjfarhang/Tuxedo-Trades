@@ -35,11 +35,11 @@
   <%- include('../blocks/footer') %>
   <script>
     document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById("signupForm").addEventListener("submit", function(event){
+      document.getElementById("signupForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
-        const signupData = new FormData(this)
-        addUser(signupData)
+        const signupData = new FormData(this);
+        addUser(signupData);
       })
     })
   </script>

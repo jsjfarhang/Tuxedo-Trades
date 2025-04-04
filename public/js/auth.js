@@ -1,6 +1,7 @@
 let bannedChars = ["/", "<", ">", "`", "\\", "src", "&lt", "&gt", "\u003c", "\u003e"];
+/* ADJUST BANNED CHARS FUNCTIONALITY */
 
-async function authenticateUser() {
+async function loginUser() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     if (!username || !password) return;
@@ -61,32 +62,6 @@ async function addUser(signupData) {
         addUserError.textContent = 'An unexpected error occurred. Please try again later.';
     }
 }
-
-/*
-async function addTestTrans(tranForm, user) { //<!-- Do not send to live -->
-    const timestamp = tranForm.get("timestamp");
-    const buySell = tranForm.get("type");
-    const ticker = tranForm.get("ticker");
-    const quantity = tranForm.get("quantity");
-    const userId = user;
-    const price = tranForm.get("price");
-
-    
-    const response = await fetch('/transactions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-            timestamp,
-            buySell,
-            ticker,
-            quantity,
-            userId,
-            price 
-        }),
-    })
-}*/
 
 if (window.location.pathname.includes('/transfer')) {
     const transferForm = document.getElementById('transfer');
