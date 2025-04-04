@@ -1,0 +1,60 @@
+.admin-container {
+    padding: 1em;
+    margin: 5%;
+    width: 60%;
+    background-color: #CEDDE2;
+    border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.admin-lg {
+    font-size: large;
+    font-weight: 500;
+}
+
+.admin-italic {
+    font-style: italic;
+}
+
+.market-confirmation {
+    padding-top: 0;
+}
+
+.admin-form {
+    display:flex;
+    margin-left: 25%;
+    width: 50%;
+    padding-bottom: 20px;
+    flex-direction: column;
+}
+
+.admin-form > input {
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+.admin-form > p {
+    padding: 1em;
+}
+
+.market-update {
+    margin-bottom: 2em;
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+@media (max-width: 1200px) {
+    .admin-form {
+        width: 70%;
+        margin-left: 15%;
+    }
+}
+@media (max-width: 749px) {
+    .admin-form {
+        width: 80%;
+        margin-left: 10%;
+    }
+}

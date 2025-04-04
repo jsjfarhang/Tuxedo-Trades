@@ -1,0 +1,148 @@
+.helpbox {
+    padding: 1em;
+    margin: 5%;
+    width: 60%;
+    background-color: #CEDDE2;
+    border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.helpbox > header, .helpbox > p {
+    margin: 1em;
+    padding: .5em;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.helpbox > header {
+    font-weight: bold;
+    font-size: xx-large;
+    padding-top: 0;
+}
+
+.helpform {
+    display:flex;
+    margin-left: 2.5%;
+    width: 95%;
+    padding-bottom: 20px;
+}
+
+form.helpform > div > input {
+    width: 80%;
+    height: 3em;
+    padding: .25em;
+    box-shadow: 2px 2px 5px gray;
+}
+
+form.helpform > div > p {
+    padding: .5em;
+    align-self: flex-start;
+}
+
+form.helpform > div > input.servicetext{
+    min-height: 150px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.leftform {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    min-height: 200px;
+}
+
+.rightform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    min-height: 200px;
+}
+
+@media (max-width: 1200px) {
+    .helpbox {
+        width: 70%;
+        margin-left: 15%;
+    }
+
+    .helpform {
+        display: block;
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .leftform {
+        width: 100%;
+    }
+
+    .rightform {
+        width: 100%;
+    }    
+
+    form.helpform > div > input {
+        width: 90%;
+        height: 3em;
+        padding: .25em;
+        box-shadow: 2px 2px 5px gray;
+    }
+}
+
+@media (max-width: 749px) {
+    .helpbox {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .helpform {
+        display: block;
+    }
+
+    .leftform {
+        width: 100%;
+    }
+
+    .rightform {
+        width: 100%;
+    }
+}
+
+@media (max-width: 340px) {
+    .helpbox {
+        width: 80%;
+        margin: 10%;
+        margin-top: 20px;
+        margin-left: 5%;
+        padding: .5em;
+    }
+
+    .helpbox > header, .helpbox > p {
+        margin: 0;
+        padding: 0;
+        padding-bottom: .25em;
+        display: flex;
+        justify-content: center;
+    }
+
+    .helpform {
+        display: block;
+        padding: 0;
+        margin: 0;
+    }
+
+    .leftform {
+        width: 100%;
+        padding: 0;
+    }
+
+    .rightform {
+        width: 100%;
+        padding: 0;
+    }
+}
