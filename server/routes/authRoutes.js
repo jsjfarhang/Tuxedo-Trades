@@ -67,6 +67,10 @@ router.post('/users', async (req, res) => {
       },
       cashAccount: {
         balance: 0
+      },
+      portfolio: {
+        ticker: null,
+        sharesOwned: 0
       }
     });
     await newUser.save();

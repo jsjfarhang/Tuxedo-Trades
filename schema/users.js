@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
   },
   cashAccount: {
     balance: { type: Number, default: 0 }
+  },
+  portfolio: {
+    ticker: { type: String, default: null },
+    sharesOwned: { type: Number, default: 0 }
   }
 }, { versionKey: false });
 
