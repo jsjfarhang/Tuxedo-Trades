@@ -26,7 +26,17 @@
         </tr>
       </thead>
       <tbody>
-
+        <% portfolio.forEach(share => { if(share.ticker != null){%>
+          <tr>
+            <td><%= share.ticker %></td>
+            <td><%= share.company %></td>
+            <td><%= share.sharesOwned %></td>
+            <td><%= share.sharesOwned * share.price %></td>
+            <td><%= share.price %></td>
+            <td><%= share.volume %></td>
+            <td><%= share.price * share.volume %></td>
+          </tr>
+        <% };}); %>
       </tbody>
     </table>
   </div>
