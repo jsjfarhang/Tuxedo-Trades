@@ -11,6 +11,9 @@
 <body>
   <%- include('../blocks/nav') %>
 <header class="dashhead">Welcome to <%= user.fname %> <%= user.lname %>'s Dashboard</header>
+<div class="dashCash">
+  <h2>Available Cash Balance: $<%= user.cashAccount["balance"] %></h2>
+</div>
 <div class="dashbox">
   <div class="dashporf">
     <table id="historyTable">

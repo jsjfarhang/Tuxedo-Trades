@@ -8,6 +8,16 @@
     display: flex;
 }
 
+.dashCash {
+    padding: 1em;
+    padding-left: 2em;
+    background-color: #444;
+    margin: 1em;
+    margin-left: 5%;
+    margin-right: 5%;
+    color: #fff;
+}
+
 .dashporf {
     height: 600px;
     width: 55%;
