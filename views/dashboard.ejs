@@ -17,7 +17,7 @@
     <h2>Available Cash Balance: $<%= user.cashAccount["balance"].toLocaleString() %></h2>
   </div>
   <div style="margin-left: auto;">
-    <div id="localTime">Local Time: Loading...</div>
+    <div id="localTime"></div>
     <div id="marketHours"></div>
   </div>
 </div>
@@ -41,8 +41,8 @@
             <td><%= share.ticker %></td>
             <td><%= share.company %></td>
             <td><%= share.sharesOwned.toLocaleString() %></td>
-            <td><%= (share.sharesOwned * share.price).toLocaleString() %></td>
-            <td><%= share.price.toLocaleString() %></td>
+            <td>$<%= (share.sharesOwned * share.price).toLocaleString() %></td>
+            <td>$<%= share.price.toLocaleString() %></td>
             <td><%= share.volume.toLocaleString() %></td>
             <td><%= (share.price * share.volume).toLocaleString() %></td>
           </tr>

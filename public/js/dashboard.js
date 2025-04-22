@@ -1,14 +1,34 @@
 function updateLocalTime() {
     const localTime = new Date().toLocaleTimeString('en-US');
-    document.getElementById('localTime').innerText = `Local Time: ${localTime}`;
+    document.getElementById('localTime').innerHTML = `Local Time: ${localTime}`;
+}
+
+function isMarketOpen(now, marketSettings) {
+    const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+    const currentTime = now.toTimeString().slice(0, 5);
+    const isOpenTime = currentTime >= marketSettings.openTime && currentTime <= marketSettings.closeTime;
+    const isOpenDay = marketSettings.openDays.includes(day);
+    const formattedDate = now.toISOString().split('T')[0].replace(/-/g, '/');
+    const isHoliday = marketSettings.holidays.includes(formattedDate);
+    return isOpenTime && isOpenDay && !isHoliday;
+}
+
+function amPmFormatting(time) {
+    const [hour, minute] = time.split(":");
+    const date = new Date();
+    date.setHours(parseInt(hour, 10));
+    date.setMinutes(parseInt(minute, 10));
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
 async function displayMarketSettings() {
     try {
         const response = await fetch('/market-settings');
         const result = await response.json();
-        document.getElementById('marketHours').innerText = 
-            `Market Hours: ${result.openTime} - ${result.closeTime}`;
+        const now = new Date();
+        const marketStatus = isMarketOpen(now, result) ? "Market Open" : "Market Closed";
+        document.getElementById('marketHours').innerHTML = 
+            `Market Hours: ${amPmFormatting(result.openTime)} - ${amPmFormatting(result.closeTime)}<br>${marketStatus}`;
     } catch (error) {
         console.error('Error fetching market settings:', error);
     }
@@ -16,6 +36,7 @@ async function displayMarketSettings() {
 
 window.addEventListener('DOMContentLoaded', () => {
     displayMarketSettings();
+    updateLocalTime();
     setInterval(updateLocalTime, 1000);
 });
 
