@@ -11,8 +11,15 @@
 <body>
   <%- include('../blocks/nav') %>
 <header class="dashhead">Welcome to <%= user.fname %> <%= user.lname %>'s Dashboard</header>
-<div class="dashCash">
-  <h2>Available Cash Balance: $<%= user.cashAccount["balance"] %></h2>
+<div class="dashInfo">
+  <div style="margin-right: auto;">
+    <h2>Total Stock Value: $<%= totalPortfolioValue.toLocaleString() %></h2>
+    <h2>Available Cash Balance: $<%= user.cashAccount["balance"].toLocaleString() %></h2>
+  </div>
+  <div style="margin-left: auto;">
+    <div id="localTime">Local Time: Loading...</div>
+    <div id="marketHours"></div>
+  </div>
 </div>
 <div class="dashbox">
   <div class="dashporf">
@@ -29,17 +36,17 @@
         </tr>
       </thead>
       <tbody>
-        <% portfolio.forEach(share => { if(share.ticker != null){%>
+        <% portfolio.forEach(share => { %>
           <tr>
             <td><%= share.ticker %></td>
             <td><%= share.company %></td>
-            <td><%= share.sharesOwned %></td>
-            <td><%= share.sharesOwned * share.price %></td>
-            <td><%= share.price %></td>
-            <td><%= share.volume %></td>
-            <td><%= share.price * share.volume %></td>
+            <td><%= share.sharesOwned.toLocaleString() %></td>
+            <td><%= (share.sharesOwned * share.price).toLocaleString() %></td>
+            <td><%= share.price.toLocaleString() %></td>
+            <td><%= share.volume.toLocaleString() %></td>
+            <td><%= (share.price * share.volume).toLocaleString() %></td>
           </tr>
-        <% };}); %>
+        <% }); %>
       </tbody>
     </table>
   </div>

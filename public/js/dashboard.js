@@ -1,3 +1,38 @@
+function updateLocalTime() {
+    const localTime = new Date().toLocaleTimeString('en-US');
+    document.getElementById('localTime').innerText = `Local Time: ${localTime}`;
+}
+
+async function displayMarketSettings() {
+    try {
+        const response = await fetch('/market-settings');
+        const result = await response.json();
+        document.getElementById('marketHours').innerText = 
+            `Market Hours: ${result.openTime} - ${result.closeTime}`;
+    } catch (error) {
+        console.error('Error fetching market settings:', error);
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    displayMarketSettings();
+    setInterval(updateLocalTime, 1000);
+});
+
+function dayChange() { // averages stock price history and outputs to frontend
+    return console.log("test")
+    let now = new Date();
+    let day = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    let prices = history
+        .filter(entry => new Date(entry.timestamp) >= day)
+        .map(entry => entry.price);
+    let average = prices.length > 0
+        ? prices.reduce((sum, price) => sum + price, 0) / prices.length
+        : 0;
+    console.log(average)
+    document.getElementById("dayChange").textContent = average;
+}
+
 async function buySell(username, ticker) {
     let type = document.getElementById('buySell').value;
     let quantity = document.getElementById('purchaseAmount').value;
@@ -21,18 +56,4 @@ async function buySell(username, ticker) {
     } catch (error) {
         transactionError.textContent = 'An unexpected error occurred. Please try again later.';
     }
-}
-
-function dayChange(history) { // averages stock price history and outputs to frontend
-    console.log("test")
-    let now = new Date();
-    let day = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    let prices = history
-        .filter(entry => new Date(entry.timestamp) >= day)
-        .map(entry => entry.price);
-    let average = prices.length > 0
-        ? prices.reduce((sum, price) => sum + price, 0) / prices.length
-        : 0;
-    console.log(average)
-    document.getElementById("dayChange").textContent = average;
 }
