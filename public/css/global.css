@@ -39,6 +39,62 @@ button:hover, a:hover {
   color: red;
 }
 
+.lightbox {
+  padding: 1em;
+  margin: 5%;
+  width: 60%;
+  background-color: #CEDDE2;
+  border-radius: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lightbox > header, .lightbox > p {
+  margin: 1em;
+  padding: .5em;
+  padding-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.lightbox > header {
+  font-weight: bold;
+  font-size: xx-large;
+  padding-top: 0;
+}
+
+@media (max-width: 1200px) {
+  .lightbox {
+      width: 70%;
+      margin-left: 15%;
+  }
+}
+
+@media (max-width: 749px) {
+  .lightbox {
+      width: 80%;
+      margin-left: 10%;
+  }
+}
+
+@media (max-width: 340px) {
+  .lightbox {
+      width: 80%;
+      margin: 10%;
+      margin-top: 20px;
+      margin-left: 5%;
+      padding: .5em;
+  }
+
+  .lightbox > header, .lightbox > p {
+      margin: 0;
+      padding: 0;
+      padding-bottom: .25em;
+      display: flex;
+      justify-content: center;
+  }
+}
+
 /* NAV */
 
 .header {

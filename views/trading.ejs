@@ -20,7 +20,7 @@
           <th>Current Price</th>
           <th>Volume</th>
           <th>Market Cap</th>
-          <th>BUY / SELL</th>
+          <th>Buy / Sell</th>
         </tr>
       </thead>
       <tbody>
@@ -31,12 +31,16 @@
             <td><%= stock.history.at(-1)?.price %></td>
             <td><%= stock.volume %></td>
             <td><%= stock.marketCap %></td>
-            <td class="buysell"><button>BUY</button> <button>SELL</button></td>
+            <td class="buysell">
+              <button><a href='/<%= user.username %>/trading/<%= stock.ticker %>?action=buy'>BUY</a></button>
+              <button><a href='/<%= user.username %>/trading/<%= stock.ticker %>?action=sell'>SELL</a></button>
+            </td>
           </tr>
         <% }); %>
       </tbody>
     </table>
   </div>
   <%- include('../blocks/footer') %>
+  <script src="/js/dashboard.js"></script>
 </body>
 </html>

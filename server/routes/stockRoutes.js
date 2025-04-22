@@ -3,14 +3,6 @@ const router = express.Router();
 const { authenticateToken } = require('../middleware');
 const { Stock } = require('../../database');
 
-// trading page
-router.get('/:username/trading', authenticateToken, async (req, res) => {
-    const user = req.user;
-    if (!user) return res.redirect(`/`);
-    const stocks = await Stock.find();
-    res.render('trading', { user, stocks });
-});
-
 // random price generator (initializes price)
 function priceGenerator() {
   let min = 1, max = 5000;
@@ -38,6 +30,14 @@ router.post('/stocks', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: 'Error creating stock', message: error.message });
   }
+});
+
+// trading page
+router.get('/:username/trading', authenticateToken, async (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/');
+  const stocks = await Stock.find();
+  res.render('trading', { user, stocks });
 });
 
 module.exports = router;

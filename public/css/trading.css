@@ -8,7 +8,36 @@
 }
 
 .buysell > button {
-    width: 25%;
+    width: 40%;
     padding: .5em;
     margin: .25em;
+}
+
+.transaction-items {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+    font-size: large;
+}
+
+.transaction-items > p {
+    padding-right: 10px;
+}
+
+.transaction-items > button {
+    padding: 5px 10px;
+    background-color: white;
+    font-size: medium;
+}
+
+@media (max-width: 690px) {
+    .buysell > button {
+        width: 90%;
+        padding: .5em;
+        margin: .25em;
+    }
+}
+
+.transaction-input {
+    width: 4em;
 }

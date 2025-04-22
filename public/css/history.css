@@ -17,6 +17,7 @@
     border-collapse: collapse;
     background-color: #1f1f1f;
     color: #fff;
+    margin-bottom: 5%;
 }
 
 #historyTable th, #historyTable td {
