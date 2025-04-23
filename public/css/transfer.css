@@ -33,6 +33,13 @@ form.Transfers {
     min-height: 200px;
 }
 
+.rightform > input {
+    width: 15%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 1em;
+}
+
 .Transfers .leftform,
 .Transfers .rightform {
     display: flex;
@@ -41,6 +48,12 @@ form.Transfers {
     width: 50%;
     padding: 10px;
     min-height: 200px;
+}
+
+.submit {
+    padding: 5px 10px;
+    background-color: white;
+    font-size: medium;
 }
 
 @media (max-width: 1200px) {
