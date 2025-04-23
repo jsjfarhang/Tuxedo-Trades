@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware');
-const { Transaction, User, Stock } = require('../../database');
+const { Transaction, User, Stock, Markets } = require('../../database');
 
 // trading history page
 router.get('/:username/history', authenticateToken, async (req, res) => {
@@ -30,8 +30,23 @@ router.post('/transactions', async (req, res) => {
   }
 });
 
+function isMarketOpen(now, marketSettings) {
+  const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+  const currentTime = now.toTimeString().slice(0, 5);
+  const isOpenTime = currentTime >= marketSettings.openTime && currentTime <= marketSettings.closeTime;
+  const isOpenDay = marketSettings.openDays.includes(day);
+  const formattedDate = now.toISOString().split('T')[0].replace(/-/g, '/');
+  const isHoliday = marketSettings.holidays.includes(formattedDate);
+  return isOpenTime && isOpenDay && !isHoliday;
+}
+
 // transaction logic
 async function executeTransaction(type, quantity, username, ticker) {
+  const marketSettings = await Markets.findOne();
+  const now = new Date();
+  if (!isMarketOpen(now, marketSettings)) {
+    throw new Error('Market is currently closed.');
+  }
   const user = await User.findOne({ username });
   const stock = await Stock.findOne({ ticker });
   const price = stock.history.at(-1)?.price;
