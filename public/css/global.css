@@ -63,6 +63,17 @@ button:hover, a:hover {
   padding-top: 0;
 }
 
+.change.positive {
+  color: rgb(0, 207, 0);
+  font-weight: bold;
+}
+
+.change.negative {
+  color: red;
+  font-weight: bold;
+}
+
+
 @media (max-width: 1200px) {
   .lightbox {
       width: 70%;

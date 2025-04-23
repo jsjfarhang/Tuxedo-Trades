@@ -34,25 +34,74 @@ async function displayMarketSettings() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    displayMarketSettings();
-    updateLocalTime();
-    setInterval(updateLocalTime, 1000);
-});
-
-function dayChange() { // averages stock price history and outputs to frontend
-    return console.log("test")
-    let now = new Date();
-    let day = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    let prices = history
-        .filter(entry => new Date(entry.timestamp) >= day)
-        .map(entry => entry.price);
-    let average = prices.length > 0
-        ? prices.reduce((sum, price) => sum + price, 0) / prices.length
-        : 0;
-    console.log(average)
-    document.getElementById("dayChange").textContent = average;
+async function displayAllDayChanges(username) {
+    try {
+        const response = await fetch('/stocks/day-change', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username }),
+        });
+        const data = await response.json();
+        data.forEach(stat => {
+            const row = document.querySelector(`tr[data-ticker="${stat.ticker}"]`);
+            if (row) {
+                const changeCell = row.querySelector('.change');
+                changeCell.innerText = `${stat.percentChange}%`;
+                if (stat.percentChange > 0) {
+                    changeCell.classList.add('positive');
+                    changeCell.classList.remove('negative');
+                } else if (stat.percentChange < 0) {
+                    changeCell.classList.add('negative');
+                    changeCell.classList.remove('positive');
+                } else {
+                    changeCell.classList.remove('positive', 'negative');
+                }
+                row.querySelector('.high').innerText = stat.highPrice;
+                row.querySelector('.low').innerText = stat.lowPrice;
+            }
+        });
+    } catch (error) {
+        console.error('Error displaying high/low/change data:', error);
+    }
 }
+
+async function displayStockDayChanges(username, ticker) {
+    try {
+        const response = await fetch('/stocks/day-change', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username }),
+        });
+        const data = await response.json();
+
+        const stockData = data.find(stat => stat.ticker === ticker);
+        if (stockData) {
+            const high = document.querySelector('.day-change .high');
+            const low = document.querySelector('.day-change .low');
+            const change = document.querySelector('.day-change .change');
+
+            if (high) high.innerText = `$${stockData.highPrice.toLocaleString()}`;
+            if (low) low.innerText = `$${stockData.lowPrice.toLocaleString()}`;
+            if (change) {
+                change.innerText = `${stockData.percentChange}%`;
+                if (stockData.percentChange > 0) {
+                    change.classList.add('positive');
+                    change.classList.remove('negative');
+                } else {
+                    change.classList.add('negative');
+                    change.classList.remove('positive');
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error displaying stock day stats:', error);
+    }
+}
+
 
 async function buySell(username, ticker) {
     let type = document.getElementById('buySell').value;

@@ -13,27 +13,28 @@
   <div class="tradetable">
     <h1><%= stock.ticker %> - <%= stock.company %></h1>
     <div id="transaction" class="lightbox">
-        <div class="day-change">
-          <p id="dayChange"></p>
-        </div>
         <div>
           <div id="localTime"></div>
           <div id="marketHours"></div>
         </div>
-        <div class="transaction-items">
-          <p>Transaction Type:</p>
-          <select id="buySell" class="transaction-dropdown">
-              <option value="buy">BUY</option>
-              <option value="sell">SELL</option>
-          </select>
+        <div class="trading-container">
+          <div class="day-change">
+            <p style="text-decoration: underline;">Day Changes</p><br>
+            <p>High: <span class="high"></span></p>
+            <p>Low: <span class="low"></span></p>
+            <p>Change: <span class="change"></span></p>
+          </div>
+          <div class="transaction-items">
+            <p>Transaction Type:</p>
+            <select id="buySell" class="transaction-dropdown">
+                <option value="buy">BUY</option>
+                <option value="sell">SELL</option>
+            </select><br><br>
+            <p>Amount:</p>
+            <input id="purchaseAmount" class="transaction-input"></input><br>
+          </div>
         </div>
-        <div class="transaction-items">
-          <p>Amount:</p>
-          <input id="purchaseAmount" class="transaction-input"></input>
-        </div>
-        <div class="transaction-items">
-          <button onclick="buySell('<%= user.username %>', '<%= stock.ticker %>')">Confirm</button>
-        </div>
+        <div class="trade-confirmation"><button onclick="buySell('<%= user.username %>', '<%= stock.ticker %>')">Confirm</button></div>
         <div id="transactionError" class="error-text" style="display: flex; justify-content: center;"></div>
     </div>
     <table id="historyTable">
@@ -55,5 +56,13 @@
   </div>
   <%- include('../blocks/footer') %>
   <script src="/js/dashboard.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      displayMarketSettings();
+      updateLocalTime();
+      setInterval(updateLocalTime, 1000);
+      displayStockDayChanges('<%= user.username %>', '<%= stock.ticker %>');
+    });
+  </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware');
-const { Stock } = require('../../database');
+const { Stock, User } = require('../../database');
 
 // random price generator (initializes price)
 function priceGenerator() {
@@ -29,6 +29,42 @@ router.post('/stocks', async (req, res) => {
     res.status(201).json(newStock);
   } catch (error) {
     res.status(400).json({ error: 'Error creating stock', message: error.message });
+  }
+});
+
+router.post('/stocks/day-change', async (req, res) => {
+  try {
+    const { username } = req.body;
+    const user = await User.findOne({ username });
+    const result = [];
+    for (let stock of user.portfolio) {
+      const stockData = await Stock.findOne({ ticker: stock.ticker });
+      if (stockData && stockData.history.length > 0) {
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+        const todayHistory = stockData.history.filter(entry => {
+          const entryDate = new Date(entry.timestamp);
+          return entryDate >= startOfDay && entryDate <= endOfDay;
+        });
+        if (todayHistory.length === 0) continue;
+        const highPrice = Math.max(...todayHistory.map(entry => entry.price));
+        const lowPrice = Math.min(...todayHistory.map(entry => entry.price));
+        const openingPrice = todayHistory[0].price;
+        const currentPrice = todayHistory.at(-1).price;
+        const percentChange = ((currentPrice - openingPrice) / openingPrice) * 100;
+        result.push({
+          ticker: stock.ticker,
+          highPrice,
+          lowPrice,
+          percentChange: percentChange.toFixed(2)
+        });
+      }
+    }
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching high, low, and percent change for today.' });
   }
 });
 

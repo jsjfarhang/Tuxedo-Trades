@@ -13,18 +13,43 @@
     margin: .25em;
 }
 
-.transaction-items {
+.trading-container {
     display: flex;
-    justify-content: center;
-    margin: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
     font-size: large;
+}
+
+.day-change {
+    margin: auto;
+}
+
+.transaction-items {
+    margin: auto;
 }
 
 .transaction-items > p {
     padding-right: 10px;
 }
 
-.transaction-items > button {
+.transaction-items > select {
+    width: 70%;
+}
+
+.transaction-input {
+    width: 60%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.trade-confirmation {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.trade-confirmation > button {
     padding: 5px 10px;
     background-color: white;
     font-size: medium;
@@ -36,8 +61,4 @@
         padding: .5em;
         margin: .25em;
     }
-}
-
-.transaction-input {
-    width: 4em;
 }

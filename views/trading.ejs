@@ -20,17 +20,23 @@
           <th>Current Price</th>
           <th>Volume</th>
           <th>Market Cap</th>
+          <th>High</th>
+          <th>Low</th>
+          <th>Day Change</th>
           <th>Buy / Sell</th>
         </tr>
       </thead>
       <tbody>
         <% stocks.forEach(stock => { %>
-          <tr>
+          <tr data-ticker="<%= stock.ticker %>">
             <td><%= stock.ticker %></td>
             <td><%= stock.company %></td>
-            <td><%= stock.history.at(-1)?.price %></td>
+            <td><%= stock.history.at(-1)?.price.toLocaleString() %></td>
             <td><%= stock.volume %></td>
-            <td><%= stock.marketCap %></td>
+            <td><%= stock.marketCap.toLocaleString() %></td>
+            <td class="high">-</td>
+            <td class="low">-</td>
+            <td class="change">-</td>
             <td class="buysell">
               <button><a href='/<%= user.username %>/trading/<%= stock.ticker %>?action=buy'>BUY</a></button>
               <button><a href='/<%= user.username %>/trading/<%= stock.ticker %>?action=sell'>SELL</a></button>
@@ -42,5 +48,10 @@
   </div>
   <%- include('../blocks/footer') %>
   <script src="/js/dashboard.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      displayAllDayChanges('<%= user.username %>');
+    });
+  </script>
 </body>
 </html>
