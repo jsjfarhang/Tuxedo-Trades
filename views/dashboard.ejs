@@ -11,6 +11,16 @@
 <body>
   <%- include('../blocks/nav') %>
 <header class="dashhead">Welcome to <%= user.fname %> <%= user.lname %>'s Dashboard</header>
+<div class="dashInfo">
+  <div style="margin-right: auto;">
+    <h2>Total Stock Value: $<%= totalPortfolioValue.toLocaleString() %></h2>
+    <h2>Available Cash Balance: $<%= user.cashAccount["balance"].toLocaleString() %></h2>
+  </div>
+  <div style="margin-left: auto;">
+    <div id="localTime"></div>
+    <div id="marketHours"></div>
+  </div>
+</div>
 <div class="dashbox">
   <div class="dashporf">
     <table id="historyTable">
@@ -20,17 +30,25 @@
           <th>Company</th>
           <th>Shares Owned</th>
           <th>Total Value</th>
-          <th>Price</th>
-          <th>Market Volume</th>
-          <th>Market Cap</th>
+          <th>Current Price</th>
+          <th>Day Change</th>
         </tr>
       </thead>
       <tbody>
-
+        <% portfolio.forEach(share => { %>
+          <tr data-ticker="<%= share.ticker %>">
+            <td><%= share.ticker %></td>
+            <td><%= share.company %></td>
+            <td><%= share.sharesOwned.toLocaleString() %></td>
+            <td>$<%= (share.sharesOwned * share.price).toLocaleString() %></td>
+            <td>$<%= share.price.toLocaleString() %></td>
+            <td class="change">-</td>
+          </tr>
+        <% }); %>
       </tbody>
     </table>
   </div>
-  <div class="sidenews">
+  <div class="news">
     <h2>News</h2>
     <h3>BREAKING NEWS</h3>
     <p>Stocks see a dramatic swing after new stimulus from foreign markets. All major firms are projecting rapid growth in the industrial sector with some suggesting a broader pattern of expansion. </p>
@@ -41,5 +59,14 @@
   </div>
 </div>
   <%- include('../blocks/footer') %>
+  <script src="/js/dashboard.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      displayMarketSettings();
+      updateLocalTime();
+      setInterval(updateLocalTime, 1000);
+      displayAllDayChanges('<%= user.username %>');
+    });
+  </script>
 </body>
 </html>

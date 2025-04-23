@@ -1,5 +1,3 @@
-/* ADJUST BANNED CHARS FUNCTIONALITY */
-
 async function addStock(stockData) {
     const createStockError = document.getElementById("createStockError");
     const ticker = stockData.get("ticker");

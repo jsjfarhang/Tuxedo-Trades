@@ -1,4 +1,4 @@
-const { mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 const User = require('./schema/users');
 const Transaction = require('./schema/transactions');
 const Stock = require('./schema/stocks');

@@ -1,0 +1,35 @@
+.aboutBox{
+    margin: 1em;
+    color: #fff
+}
+
+.aboutBox > h1 {
+    margin: 2em;
+    font-weight: bolder;
+}
+
+.aboutBox > p {
+    margin: 1em;
+    padding: 3em;
+    background-color: #444;
+}
+
+.aboutBox > p#firstq {
+    padding-top: 3em;
+}
+
+.aboutBox > p.q {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-decoration: underline;
+}
+
+.aboutBox > p.a {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 5em;
+}

@@ -8,7 +8,57 @@
 }
 
 .buysell > button {
-    width: 25%;
+    width: 40%;
     padding: .5em;
     margin: .25em;
+}
+
+.trading-container {
+    display: flex;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    font-size: large;
+}
+
+.day-change {
+    margin: auto;
+}
+
+.transaction-items {
+    margin: auto;
+}
+
+.transaction-items > p {
+    padding-right: 10px;
+}
+
+.transaction-items > select {
+    width: 70%;
+}
+
+.transaction-input {
+    width: 60%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.trade-confirmation {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.trade-confirmation > button {
+    padding: 5px 10px;
+    background-color: white;
+    font-size: medium;
+}
+
+@media (max-width: 690px) {
+    .buysell > button {
+        width: 90%;
+        padding: .5em;
+        margin: .25em;
+    }
 }

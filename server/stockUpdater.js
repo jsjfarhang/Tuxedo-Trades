@@ -17,7 +17,7 @@ async function updateStockPrice() {
     if (lastPrice) {
       const newPrice = generateNewPrice(lastPrice);
       stock.history.push({ timestamp: new Date(), price: newPrice });
-      if (stock.history.length > 20) {
+      if (stock.history.length > 10) {
         stock.history.shift();
       }
       await stock.save();

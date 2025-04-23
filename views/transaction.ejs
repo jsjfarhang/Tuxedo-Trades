@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuxedo Trades</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/trading.css">
+  <link rel="stylesheet" href="/css/history.css">
+</head>
+<body>
+  <%- include('../blocks/nav') %>
+  <div class="tradetable">
+    <h1><%= stock.ticker %> - <%= stock.company %></h1>
+    <div id="transaction" class="lightbox">
+        <div>
+          <div id="localTime"></div>
+          <div id="marketHours"></div>
+        </div>
+        <div class="trading-container">
+          <div class="day-change">
+            <p style="text-decoration: underline;">Day Changes</p><br>
+            <p>High: <span class="high"></span></p>
+            <p>Low: <span class="low"></span></p>
+            <p>Change: <span class="change"></span></p>
+          </div>
+          <div class="transaction-items">
+            <p>Transaction Type:</p>
+            <select id="buySell" class="transaction-dropdown">
+                <option value="buy" <%= action === 'buy' ? 'selected' : '' %>>BUY</option>
+                <option value="sell" <%= action === 'sell' ? 'selected' : '' %>>SELL</option>
+            </select><br><br>
+            <p>Amount:</p>
+            <input id="purchaseAmount" class="transaction-input"></input><br>
+          </div>
+        </div>
+        <div class="trade-confirmation"><button onclick="buySell('<%= user.username %>', '<%= stock.ticker %>')">Confirm</button></div>
+        <div id="transactionError" class="error-text" style="display: flex; justify-content: center;"></div>
+    </div>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% stock.history.slice().reverse().forEach(entry => { %>
+            <tr>
+                <td><%= entry.timestamp %></td>
+                <td><%= entry.price %></td>
+            </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../blocks/footer') %>
+  <script src="/js/dashboard.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      displayMarketSettings();
+      updateLocalTime();
+      setInterval(updateLocalTime, 1000);
+      displayStockDayChanges('<%= user.username %>', '<%= stock.ticker %>');
+    });
+  </script>
+</body>
+</html>

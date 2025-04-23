@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'live',
       sameSite: 'Strict',
-      maxAge: 24 * 60 * 60 * 1000
+      maxAge: 60 * 60 * 1000 // 1 hour
     });
     res.json({ redirectUrl: `/${user.username}/dashboard` });
   } catch (error) {
@@ -67,6 +67,10 @@ router.post('/users', async (req, res) => {
       },
       cashAccount: {
         balance: 0
+      },
+      portfolio: {
+        ticker: null,
+        sharesOwned: 0
       }
     });
     await newUser.save();
