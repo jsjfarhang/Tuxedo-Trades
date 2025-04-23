@@ -36,10 +36,18 @@ router.post('/stocks', async (req, res) => {
 router.post('/stocks/day-change', async (req, res) => {
   try {
     const { username } = req.body;
-    const user = await User.findOne({ username });
+    let stocksToCheck = [];
+    if (username) {
+      const user = await User.findOne({ username });
+      if (!user) return res.status(404).json({ error: 'User not found' });
+      stocksToCheck = user.portfolio.map(stock => stock.ticker);
+    } else {
+      const allStocks = await Stock.find({});
+      stocksToCheck = allStocks.map(stock => stock.ticker);
+    }
     const result = [];
-    for (let stock of user.portfolio) {
-      const stockData = await Stock.findOne({ ticker: stock.ticker });
+    for (let ticker of stocksToCheck) {
+      const stockData = await Stock.findOne({ ticker });
       if (stockData && stockData.history.length > 0) {
         const today = new Date();
         const startOfDay = new Date(today.setHours(0, 0, 0, 0));
@@ -55,11 +63,11 @@ router.post('/stocks/day-change', async (req, res) => {
         const lowPrice = Math.min(...todayHistory.map(entry => entry.price));
         const percentChange = ((currentPrice - openingPrice) / openingPrice) * 100;
         result.push({
-          ticker: stock.ticker,
+          ticker,
           openingPrice,
           highPrice,
           lowPrice,
-          percentChange: percentChange.toFixed(2)
+          percentChange: percentChange.toFixed(2),
         });
       }
     }

@@ -36,12 +36,13 @@ async function displayMarketSettings() {
 
 async function displayAllDayChanges(username) {
     try {
+        const requestBody = username ? { username } : {};
         const response = await fetch('/stocks/day-change', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username }),
+            body: JSON.stringify({ requestBody }),
         });
         const data = await response.json();
         data.forEach(stat => {
