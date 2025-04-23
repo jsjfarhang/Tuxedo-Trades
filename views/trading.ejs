@@ -31,7 +31,7 @@
           <tr data-ticker="<%= stock.ticker %>">
             <td><%= stock.ticker %></td>
             <td><%= stock.company %></td>
-            <td><%= stock.history.at(-1)?.price.toLocaleString() %></td>
+            <td>$<%= stock.history.at(-1)?.price.toLocaleString() %></td>
             <td><%= stock.volume %></td>
             <td><%= stock.marketCap.toLocaleString() %></td>
             <td class="high">-</td>

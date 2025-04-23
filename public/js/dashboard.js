@@ -48,7 +48,7 @@ async function displayAllDayChanges(username) {
             const row = document.querySelector(`tr[data-ticker="${stat.ticker}"]`);
             if (row) {
                 const changeCell = row.querySelector('.change');
-                changeCell.innerText = `${stat.percentChange}%`;
+                changeCell.innerHTML = `${stat.percentChange}%`;
                 if (stat.percentChange > 0) {
                     changeCell.classList.add('positive');
                     changeCell.classList.remove('negative');
@@ -58,8 +58,8 @@ async function displayAllDayChanges(username) {
                 } else {
                     changeCell.classList.remove('positive', 'negative');
                 }
-                row.querySelector('.high').innerText = stat.highPrice;
-                row.querySelector('.low').innerText = stat.lowPrice;
+                row.querySelector('.high').innerHTML = `$${stat.highPrice.toLocaleString()}`;
+                row.querySelector('.low').innerHTML = `$${stat.lowPrice.toLocaleString()}`;
             }
         });
     } catch (error) {
@@ -84,10 +84,10 @@ async function displayStockDayChanges(username, ticker) {
             const low = document.querySelector('.day-change .low');
             const change = document.querySelector('.day-change .change');
 
-            if (high) high.innerText = `$${stockData.highPrice.toLocaleString()}`;
-            if (low) low.innerText = `$${stockData.lowPrice.toLocaleString()}`;
+            if (high) high.innerHTML = `$${stockData.highPrice.toLocaleString()}`;
+            if (low) low.innerHTML = `$${stockData.lowPrice.toLocaleString()}`;
             if (change) {
-                change.innerText = `${stockData.percentChange}%`;
+                change.innerHTML = `${stockData.percentChange}%`;
                 if (stockData.percentChange > 0) {
                     change.classList.add('positive');
                     change.classList.remove('negative');
