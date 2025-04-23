@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <% transactions.forEach(transaction => { %>
+        <% transactions.slice().reverse().forEach(transaction => { %>
           <tr>
             <td><%= transaction.timestamp %></td>
             <td><%= transaction.type %></td>

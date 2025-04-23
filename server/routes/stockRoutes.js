@@ -32,6 +32,7 @@ router.post('/stocks', async (req, res) => {
   }
 });
 
+// get daily opening price, high, low, % change
 router.post('/stocks/day-change', async (req, res) => {
   try {
     const { username } = req.body;
@@ -48,13 +49,14 @@ router.post('/stocks/day-change', async (req, res) => {
           return entryDate >= startOfDay && entryDate <= endOfDay;
         });
         if (todayHistory.length === 0) continue;
+        const currentPrice = todayHistory.at(-1).price;
+        const openingPrice = todayHistory[0].price;
         const highPrice = Math.max(...todayHistory.map(entry => entry.price));
         const lowPrice = Math.min(...todayHistory.map(entry => entry.price));
-        const openingPrice = todayHistory[0].price;
-        const currentPrice = todayHistory.at(-1).price;
         const percentChange = ((currentPrice - openingPrice) / openingPrice) * 100;
         result.push({
           ticker: stock.ticker,
+          openingPrice,
           highPrice,
           lowPrice,
           percentChange: percentChange.toFixed(2)
@@ -64,7 +66,7 @@ router.post('/stocks/day-change', async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error fetching high, low, and percent change for today.' });
+    res.status(500).json({ error: 'Error fetching opening price, high, low and percent change for today.' });
   }
 });
 

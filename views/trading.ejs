@@ -20,6 +20,7 @@
           <th>Current Price</th>
           <th>Volume</th>
           <th>Market Cap</th>
+          <th>Opening Price</th>
           <th>High</th>
           <th>Low</th>
           <th>Day Change</th>
@@ -34,6 +35,7 @@
             <td>$<%= stock.history.at(-1)?.price.toLocaleString() %></td>
             <td><%= stock.volume %></td>
             <td><%= stock.marketCap.toLocaleString() %></td>
+            <td class="opening">-</td>
             <td class="high">-</td>
             <td class="low">-</td>
             <td class="change">-</td>

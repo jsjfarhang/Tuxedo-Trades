@@ -27,8 +27,8 @@
           <div class="transaction-items">
             <p>Transaction Type:</p>
             <select id="buySell" class="transaction-dropdown">
-                <option value="buy">BUY</option>
-                <option value="sell">SELL</option>
+                <option value="buy" <%= action === 'buy' ? 'selected' : '' %>>BUY</option>
+                <option value="sell" <%= action === 'sell' ? 'selected' : '' %>>SELL</option>
             </select><br><br>
             <p>Amount:</p>
             <input id="purchaseAmount" class="transaction-input"></input><br>

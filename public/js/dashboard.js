@@ -47,19 +47,25 @@ async function displayAllDayChanges(username) {
         data.forEach(stat => {
             const row = document.querySelector(`tr[data-ticker="${stat.ticker}"]`);
             if (row) {
-                const changeCell = row.querySelector('.change');
-                changeCell.innerHTML = `${stat.percentChange}%`;
-                if (stat.percentChange > 0) {
-                    changeCell.classList.add('positive');
-                    changeCell.classList.remove('negative');
-                } else if (stat.percentChange < 0) {
-                    changeCell.classList.add('negative');
-                    changeCell.classList.remove('positive');
-                } else {
-                    changeCell.classList.remove('positive', 'negative');
+                    const changeCell = row.querySelector('.change');
+                    if (changeCell) {
+                        changeCell.innerHTML = `${stat.percentChange}%`;
+                    if (stat.percentChange > 0) {
+                        changeCell.classList.add('positive');
+                        changeCell.classList.remove('negative');
+                    } else if (stat.percentChange < 0) {
+                        changeCell.classList.add('negative');
+                        changeCell.classList.remove('positive');
+                    } else {
+                        changeCell.classList.remove('positive', 'negative');
+                    }
                 }
-                row.querySelector('.high').innerHTML = `$${stat.highPrice.toLocaleString()}`;
-                row.querySelector('.low').innerHTML = `$${stat.lowPrice.toLocaleString()}`;
+                const openingCell = row.querySelector('.opening');
+                if (openingCell) openingCell.innerHTML = `$${stat.openingPrice.toLocaleString()}`;
+                const highCell = row.querySelector('.high');
+                if (highCell) highCell.innerHTML = `$${stat.highPrice.toLocaleString()}`;
+                const lowCell = row.querySelector('.low');
+                if (lowCell) lowCell.innerHTML = `$${stat.lowPrice.toLocaleString()}`;
             }
         });
     } catch (error) {
@@ -107,6 +113,8 @@ async function buySell(username, ticker) {
     let type = document.getElementById('buySell').value;
     let quantity = document.getElementById('purchaseAmount').value;
     let transactionError = document.getElementById('transactionError');
+    const isConfirmed = window.confirm(`Are you sure you want to ${type} ${quantity} shares of ${ticker}?`);
+    if (!isConfirmed) return;
     try {
         const response = await fetch('/transactions', {
             method: 'POST',
@@ -120,7 +128,8 @@ async function buySell(username, ticker) {
             transactionError.textContent = result.error || 'An error occurred during account creation.';
         } else {
             transactionError.textContent = '';
-            alert(`Successfully purchased ${quantity} shares of ${ticker}!`);
+            if (type == 'buy') alert(`Successfully purchased ${quantity} shares of ${ticker}!`);
+            if (type == 'sell') alert(`Successfully sold ${quantity} shares of ${ticker}!`);
             window.location.reload;
         }
     } catch (error) {

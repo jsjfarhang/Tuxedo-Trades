@@ -30,21 +30,19 @@
           <th>Company</th>
           <th>Shares Owned</th>
           <th>Total Value</th>
-          <th>Price</th>
-          <th>Market Volume</th>
-          <th>Market Cap</th>
+          <th>Current Price</th>
+          <th>Day Change</th>
         </tr>
       </thead>
       <tbody>
         <% portfolio.forEach(share => { %>
-          <tr>
+          <tr data-ticker="<%= share.ticker %>">
             <td><%= share.ticker %></td>
             <td><%= share.company %></td>
             <td><%= share.sharesOwned.toLocaleString() %></td>
             <td>$<%= (share.sharesOwned * share.price).toLocaleString() %></td>
             <td>$<%= share.price.toLocaleString() %></td>
-            <td><%= share.volume.toLocaleString() %></td>
-            <td><%= (share.price * share.volume).toLocaleString() %></td>
+            <td class="change">-</td>
           </tr>
         <% }); %>
       </tbody>
@@ -67,6 +65,7 @@
       displayMarketSettings();
       updateLocalTime();
       setInterval(updateLocalTime, 1000);
+      displayAllDayChanges('<%= user.username %>');
     });
   </script>
 </body>

@@ -59,7 +59,7 @@ async function executeTransaction(type, quantity, username, ticker) {
     throw new Error('No price data available for this stock.');
   }
   const cost = price * quantity;
-  if (stock.volume < quantity) {
+  if (type === 'BUY' && stock.volume < quantity) {
     throw new Error('Not enough available stock.');
   }
   if (type === 'BUY' && user.cashAccount.balance < cost) {
