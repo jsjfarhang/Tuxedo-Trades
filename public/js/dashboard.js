@@ -114,6 +114,8 @@ async function buySell(username, ticker) {
     let type = document.getElementById('buySell').value;
     let quantity = document.getElementById('purchaseAmount').value;
     let transactionError = document.getElementById('transactionError');
+    if (!quantity) return transactionError.textContent = 'Please enter an amount.';
+    transactionError.textContent = '';
     const isConfirmed = window.confirm(`Are you sure you want to ${type} ${quantity} shares of ${ticker}?`);
     if (!isConfirmed) return;
     try {
