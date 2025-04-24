@@ -40,7 +40,7 @@ router.post('/stocks', async (req, res) => {
 router.post('/stocks/day-change', async (req, res) => {
   try {
     const { username } = req.body;
-    if (!sanitizeInput([username])) {
+    if (username && !sanitizeInput([username])) {
       return res.status(400).json({ message: "Invalid input detected" });
     }
     let stocksToCheck = [];
