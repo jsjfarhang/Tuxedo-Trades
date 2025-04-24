@@ -16,13 +16,13 @@
       <thead>
         <tr>
           <th>Ticker</th>
-          <th>Company</th>
+          <th class="m-h1">Company</th>
           <th>Current Price</th>
-          <th>Volume</th>
-          <th>Market Cap</th>
-          <th>Opening Price</th>
-          <th>High</th>
-          <th>Low</th>
+          <th class="m-h2">Volume</th>
+          <th class="m-h2">Market Cap</th>
+          <th class="m-h1">Opening Price</th>
+          <th class="m-h3">High</th>
+          <th class="m-h3">Low</th>
           <th>Day Change</th>
           <th>Buy / Sell</th>
         </tr>
@@ -31,13 +31,13 @@
         <% stocks.forEach(stock => { %>
           <tr data-ticker="<%= stock.ticker %>">
             <td><%= stock.ticker %></td>
-            <td><%= stock.company %></td>
+            <td class="m-h1"><%= stock.company %></td>
             <td>$<%= stock.history.at(-1)?.price.toLocaleString() %></td>
-            <td><%= stock.volume %></td>
-            <td><%= stock.marketCap.toLocaleString() %></td>
-            <td class="opening">-</td>
-            <td class="high">-</td>
-            <td class="low">-</td>
+            <td class="m-h2"><%= stock.volume %></td>
+            <td class="m-h2"><%= stock.marketCap.toLocaleString() %></td>
+            <td class="opening m-h1">-</td>
+            <td class="high m-h3">-</td>
+            <td class="low m-h3">-</td>
             <td class="change">-</td>
             <td class="buysell">
               <button><a href='/<%= user.username %>/trading/<%= stock.ticker %>?action=buy'>BUY</a></button>
@@ -52,7 +52,7 @@
   <script src="/js/dashboard.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      displayAllDayChanges('<%= user.username %>');
+      displayAllDayChanges();
     });
   </script>
 </body>

@@ -12,28 +12,28 @@
   <div class="lightbox">
     <header>Account Transfers</header>
     <p>Specify your transaction and select "Submit" to process.</p><br>
-    <p>Current Account Balance: <%= user.cashAccount.balance %></p><br>
+    <p>Current Account Balance: $<%= user.cashAccount.balance.toLocaleString() %></p><br>
     <form id="transfer">
       <input type="hidden" id="username" value="<%= user.username %>">
       <div class="leftform">
         <p>Transfer from:</p>
         <select id="transferFrom" required>
           <option value="" disabled selected>Choose Account</option>
-          <option value="cashAccount">Account Balance: <%= user.cashAccount.balance %></option>
-          <option value="bankAccount"><%= user.bankAccount.bankName %>: <%= user.bankAccount.balance %></option>
+          <option value="cashAccount">Account Balance: $<%= user.cashAccount.balance.toLocaleString() %></option>
+          <option value="bankAccount"><%= user.bankAccount.bankName %>: $<%= user.bankAccount.balance.toLocaleString() %></option>
         </select><br>
         <p>Transfer to:</p>
         <select id="transferTo" required>
           <option value="" disabled selected>Choose Account</option>
-          <option value="cashAccount">Account Balance: <%= user.cashAccount.balance %></option>
-          <option value="bankAccount"><%= user.bankAccount.bankName %>: <%= user.bankAccount.balance %></option>
+          <option value="cashAccount">Account Balance: $<%= user.cashAccount.balance.toLocaleString() %></option>
+          <option value="bankAccount"><%= user.bankAccount.bankName %>: $<%= user.bankAccount.balance.toLocaleString() %></option>
         </select>
       </div>
       <div class="rightform">
         <p>Amount:</p>
         <input id="amount" type="text" placeholder="Amount"><br>
         <p id="amountError" class="error-text"></p><br>
-        <input type="submit">
+        <input class="submit" type="submit">
       </div>
     </form>    
   </div>

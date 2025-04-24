@@ -36,12 +36,13 @@ async function displayMarketSettings() {
 
 async function displayAllDayChanges(username) {
     try {
+        const requestBody = username ? { username } : {};
         const response = await fetch('/stocks/day-change', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username }),
+            body: JSON.stringify({ requestBody }),
         });
         const data = await response.json();
         data.forEach(stat => {
@@ -113,6 +114,8 @@ async function buySell(username, ticker) {
     let type = document.getElementById('buySell').value;
     let quantity = document.getElementById('purchaseAmount').value;
     let transactionError = document.getElementById('transactionError');
+    if (!quantity) return transactionError.textContent = 'Please enter an amount.';
+    transactionError.textContent = '';
     const isConfirmed = window.confirm(`Are you sure you want to ${type} ${quantity} shares of ${ticker}?`);
     if (!isConfirmed) return;
     try {
@@ -128,8 +131,8 @@ async function buySell(username, ticker) {
             transactionError.textContent = result.error || 'An error occurred during account creation.';
         } else {
             transactionError.textContent = '';
-            if (type == 'buy') alert(`Successfully purchased ${quantity} shares of ${ticker}!`);
-            if (type == 'sell') alert(`Successfully sold ${quantity} shares of ${ticker}!`);
+            if (type == 'buy') alert(`Successfully purchased ${quantity} share(s) of ${ticker}!`);
+            if (type == 'sell') alert(`Successfully sold ${quantity} share(s) of ${ticker}!`);
             window.location.reload;
         }
     } catch (error) {

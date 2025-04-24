@@ -20,7 +20,7 @@
 }
 
 .dashporf {
-    height: 600px;
+    max-height: 600px;
     width: 55%;
     margin-left: 5%;
     margin-right: 5%;
@@ -68,5 +68,11 @@
     .news {
         width: 90%;
         margin-left: 5%;
+    }
+}
+
+@media (max-width: 580px) {
+    .market-info, .m-h {
+        display: none;
     }
 }

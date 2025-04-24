@@ -24,7 +24,7 @@ router.get('/:username/dashboard', authenticateToken, async (req, res) => {
                     "volume": stock.volume,
                     "marketCap": stockMarketValue,
                 });
-                totalPortfolioValue += stockMarketValue * share.sharesOwned;
+                totalPortfolioValue += lastPrice * share.sharesOwned;
             };
         });
     });   
