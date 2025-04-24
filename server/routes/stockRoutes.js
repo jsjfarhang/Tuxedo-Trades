@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware');
+const { sanitizeInput } = require('../sanitize');
 const { Stock, User } = require('../../database');
 
 // random price generator (initializes price)
@@ -14,6 +15,9 @@ function priceGenerator() {
 router.post('/stocks', async (req, res) => {
   try {
     const { ticker, company, volume } = req.body;
+    if (!sanitizeInput([ticker, company, volume])) {
+      return res.status(400).json({ message: "Invalid input detected" });
+    }
     const existingStock = await Stock.findOne({ 
       $or: [{ ticker }, { company }] 
     });
@@ -36,6 +40,9 @@ router.post('/stocks', async (req, res) => {
 router.post('/stocks/day-change', async (req, res) => {
   try {
     const { username } = req.body;
+    if (!sanitizeInput([username])) {
+      return res.status(400).json({ message: "Invalid input detected" });
+    }
     let stocksToCheck = [];
     if (username) {
       const user = await User.findOne({ username });

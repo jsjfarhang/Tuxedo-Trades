@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { authenticateToken } = require('../middleware');
+const { sanitizeInput } = require('../sanitize');
 const { User } = require('../../database');
 
 // login user
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+    if (!sanitizeInput([username, password])) {
+      return res.status(400).json({ message: "Invalid input detected" });
+    }
     if (!username || !password) {
       return res.status(400).json({ error: 'Username and password are required' });
     }
@@ -49,6 +53,9 @@ router.get('/signup', authenticateToken, async (req, res) => {
 router.post('/users', async (req, res) => {
   try {
     const { fname, lname, username, password, email, bankName, balance } = req.body;
+    if (!sanitizeInput([fname, lname, username, password, email, bankName, balance])) {
+      return res.status(400).json({ message: "Invalid input detected" });
+    }
     const existingUser = await User.findOne({ 
       $or: [{ username }, { email }] 
     });

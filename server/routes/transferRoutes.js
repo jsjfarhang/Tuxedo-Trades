@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware');
+const { sanitizeInput } = require('../sanitize');
 const { User } = require('../../database');
 
 // transfer page (deposit/withdraw)
@@ -14,6 +15,9 @@ router.get('/:username/transfer', authenticateToken, async (req, res) => {
 router.post('/transfer', async (req, res) => {
   try {
     const { username, amount, fromAccount, toAccount } = req.body;
+    if (!sanitizeInput([username, amount, fromAccount, toAccount])) {
+      return res.status(400).json({ message: "Invalid input detected" });
+    }
     const user = await User.findOne({ username });
     if (!user) return res.status(404).json({ error: 'User not found or bank account does not exist' });
     if (fromAccount === 'bankAccount' && user.bankAccount.balance < amount) {
