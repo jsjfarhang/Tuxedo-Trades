@@ -38,10 +38,10 @@
         <% portfolio.forEach(share => { %>
           <tr data-ticker="<%= share.ticker %>">
             <td><%= share.ticker %></td>
-            <td class="m-hidden"><%= share.company %></td>
+            <td class="m-h"><%= share.company %></td>
             <td><%= share.sharesOwned.toLocaleString() %></td>
             <td>$<%= (share.sharesOwned * share.price).toLocaleString() %></td>
-            <td class="m-hidden">$<%= share.price.toLocaleString() %></td>
+            <td class="m-h">$<%= share.price.toLocaleString() %></td>
             <td class="change">-</td>
           </tr>
         <% }); %>
