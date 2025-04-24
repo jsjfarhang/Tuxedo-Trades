@@ -112,7 +112,7 @@ async function displayStockDayChanges(username, ticker) {
 
 async function buySell(username, ticker) {
     let type = document.getElementById('buySell').value;
-    let quantity = document.getElementById('purchaseAmount').value;
+    let quantity = Number(document.getElementById('purchaseAmount').value);
     let transactionError = document.getElementById('transactionError');
     if (!quantity) return transactionError.textContent = 'Please enter an amount.';
     transactionError.textContent = '';

@@ -74,6 +74,10 @@ form.Transfers {
     .rightform {
         width: 100%;
     }
+
+    .rightform > input {
+        width: 25%;
+    }
 }
 
 @media (max-width: 340px) {

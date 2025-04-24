@@ -31,7 +31,7 @@
                 <option value="sell" <%= action === 'sell' ? 'selected' : '' %>>SELL</option>
             </select><br><br>
             <p>Amount:</p>
-            <input id="purchaseAmount" class="transaction-input"></input><br>
+            <input id="purchaseAmount" class="transaction-input" type="number"></input><br>
           </div>
         </div>
         <div class="trade-confirmation"><button onclick="buySell('<%= user.username %>', '<%= stock.ticker %>')">Confirm</button></div>
