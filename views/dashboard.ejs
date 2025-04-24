@@ -16,7 +16,7 @@
     <h2>Total Stock Value: $<%= totalPortfolioValue.toLocaleString() %></h2>
     <h2>Available Cash Balance: $<%= user.cashAccount["balance"].toLocaleString() %></h2>
   </div>
-  <div style="margin-left: auto;">
+  <div class="market-info" style="margin-left: auto;">
     <div id="localTime"></div>
     <div id="marketHours"></div>
   </div>
@@ -27,10 +27,10 @@
       <thead>
         <tr>
           <th>Ticker</th>
-          <th>Company</th>
+          <th class="m-h">Company</th>
           <th>Shares Owned</th>
           <th>Total Value</th>
-          <th>Current Price</th>
+          <th class="m-h">Current Price</th>
           <th>Day Change</th>
         </tr>
       </thead>
@@ -38,10 +38,10 @@
         <% portfolio.forEach(share => { %>
           <tr data-ticker="<%= share.ticker %>">
             <td><%= share.ticker %></td>
-            <td><%= share.company %></td>
+            <td class="m-hidden"><%= share.company %></td>
             <td><%= share.sharesOwned.toLocaleString() %></td>
             <td>$<%= (share.sharesOwned * share.price).toLocaleString() %></td>
-            <td>$<%= share.price.toLocaleString() %></td>
+            <td class="m-hidden">$<%= share.price.toLocaleString() %></td>
             <td class="change">-</td>
           </tr>
         <% }); %>
