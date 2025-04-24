@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { sanitizeInput } = require('../sanitize');
 const { Markets } = require('../../database');
 
 let cachedMarket = null;
@@ -26,6 +27,9 @@ router.get('/market-settings', async (req, res) => {
 // update market hours
 router.post('/update-market-hours', async (req, res) => {
     const { openTime, closeTime } = req.body;
+    if (!sanitizeInput([openTime, closeTime])) {
+        return res.status(400).json({ message: "Invalid input detected" });
+    }
     await Markets.findOneAndUpdate({}, { openTime, closeTime });
     cachedMarket.openTime = openTime;
     cachedMarket.closeTime = closeTime;
@@ -35,6 +39,9 @@ router.post('/update-market-hours', async (req, res) => {
 // update market schedule
 router.post('/update-market-schedule', async (req, res) => {
     const { openDays, holidays } = req.body;
+    if (!sanitizeInput([openDays, holidays])) {
+        return res.status(400).json({ message: "Invalid input detected" });
+    }
     await Markets.findOneAndUpdate({}, { openDays, holidays });
     cachedMarket.openDays = openDays;
     cachedMarket.holidays = holidays;

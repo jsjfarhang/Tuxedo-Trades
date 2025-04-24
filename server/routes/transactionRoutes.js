@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware');
+const { sanitizeInput } = require('../sanitize');
 const { Transaction, User, Stock, Markets } = require('../../database');
 
 // trading history page
@@ -15,6 +16,9 @@ router.get('/:username/history', authenticateToken, async (req, res) => {
 router.post('/transactions', async (req, res) => {
   try {
     const { type, quantity, username, ticker } = req.body;
+    if (!sanitizeInput([type, quantity, username, ticker])) {
+      return res.status(400).json({ message: "Invalid input detected" });
+    }
     if (!type || !ticker || quantity == (null || "")) {
       return res.status(400).json({ error: 'All fields are required.' });
     }
