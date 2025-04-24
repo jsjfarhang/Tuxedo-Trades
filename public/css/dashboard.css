@@ -19,6 +19,10 @@
     color: #fff;
 }
 
+.dashSpacing {
+    margin-right: auto;
+}
+
 .dashporf {
     max-height: 600px;
     width: 55%;
@@ -74,5 +78,8 @@
 @media (max-width: 580px) {
     .market-info, .m-h {
         display: none;
+    }
+    .dashhead, .dashSpacing > h2 {
+        font-size: medium;
     }
 }
