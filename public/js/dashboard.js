@@ -42,7 +42,7 @@ async function displayAllDayChanges(username) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ requestBody }),
+            body: JSON.stringify(requestBody),
         });
         const data = await response.json();
         data.forEach(stat => {
