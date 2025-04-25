@@ -7,7 +7,7 @@ const bannedPatterns = [
 
 function sanitizeInput(input) {
     const check = (str) => {
-        if (typeof str !== "string") return false;
+        if (typeof str !== "string") return true;
         for (let pattern of bannedPatterns) {
             if (pattern.test(str)) return false;
         }
