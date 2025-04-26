@@ -30,8 +30,12 @@ connectDb();
 // Run stock market updater
 loadMarket();
 
-//async function testPriceUpdate() { await updateStockPrice(); }
-//testPriceUpdate();
+async function testPriceUpdateNTimes(n) {
+  for (let i = 0; i < n; i++) {
+      await updateStockPrice();
+  }
+}
+testPriceUpdateNTimes(3);
 
 // Routes
 const indexRoutes = require('./server/routes/indexRoutes');
