@@ -34,10 +34,17 @@ router.post('/transactions', async (req, res) => {
   }
 });
 
+function timeStringToMinutes(timeString) {
+  const [hours, minutes] = timeString.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
 function isMarketOpen(now, marketSettings) {
   const day = now.toLocaleDateString('en-US', { weekday: 'long' });
-  const currentTime = now.toTimeString().slice(0, 5);
-  const isOpenTime = currentTime >= marketSettings.openTime && currentTime <= marketSettings.closeTime;
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const openMinutes = timeStringToMinutes(marketSettings.openTime);
+  const closeMinutes = timeStringToMinutes(marketSettings.closeTime);
+  const isOpenTime = currentMinutes >= openMinutes && currentMinutes <= closeMinutes;
   const isOpenDay = marketSettings.openDays.includes(day);
   const formattedDate = now.toISOString().split('T')[0].replace(/-/g, '/');
   const isHoliday = marketSettings.holidays.includes(formattedDate);
