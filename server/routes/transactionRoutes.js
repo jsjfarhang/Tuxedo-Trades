@@ -96,7 +96,7 @@ async function executeTransaction(type, quantity, username, ticker) {
       user.portfolio.splice(index, 1);
     }
     user.cashAccount.balance += cost;
-    stock.volume -= quantity;
+    stock.volume += quantity;
   }
   await user.save();
   await stock.save();
